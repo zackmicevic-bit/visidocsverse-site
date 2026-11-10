@@ -570,7 +570,7 @@ Most similar in your workspace:
   <div class="side-card rv"><h4>📬 Support & billing</h4><p>For billing, invoices, or canceling a subscription: open your Lemon Squeezy order page (by clicking on the links sent to your email by Lemon Squeezy when you subscribed and at each new billing cycle) and manage everything from there.</p><p style="margin-bottom:0">For other queries, or if you wish to buy for a team or institution: send us a message here and we'll get back to you as quickly as we can.</p></div>
   <form class="cform rv" id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
     <!-- WEB3FORMS: paste the access key from web3forms.com below to go live (nothing else changes) -->
-    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+    <input type="hidden" name="access_key" value="b74e06db-75f7-4a2c-9eda-4b1bc66ab920">
     <input type="hidden" name="subject" value="New website message — VisiDocsverse">
     <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
     <label for="cfName">Your name</label>
@@ -589,7 +589,7 @@ Most similar in your workspace:
     f.addEventListener('submit',function(e){
       e.preventDefault();
       var key=(f.querySelector('input[name="access_key"]')||{}).value||'';
-      if(!key||key==='YOUR_ACCESS_KEY_HERE'){st.className='';st.textContent='Messaging opens shortly — for now reach us via your Lemon Squeezy order page or a receipt-email reply.';return;}
+      if(!key){st.className='';st.textContent='Messaging opens shortly — for now reach us via your Lemon Squeezy order page or a receipt-email reply.';return;}
       if(!f.checkValidity()){st.className='err';st.textContent='Please fill in your name, a valid email, and a message.';f.reportValidity();return;}
       btn.disabled=true;st.className='';st.textContent='Sending…';
       fetch(f.action,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(f)))})
