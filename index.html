@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VisiDocsverse — Your documents, as a living universe</title>
+<meta name="description" content="VisiDocsverse turns piles of PDFs, docs, notes and screenshots into a living 3D universe where related ideas pull together and the document you are reading sits at the center of gravity. Offline-first. $4/month subscription. For Windows.">
+<link rel="canonical" href="https://visidocsverse.com/">
+<meta name="theme-color" content="#0a0e16">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VisiDocsverse">
+<meta property="og:title" content="VisiDocsverse — Your documents, as a living universe">
+<meta property="og:description" content="Drop in PDFs, docs and notes — related ideas pull together with real gravity, and whatever you're reading sits at the center. Offline-first, for Windows.">
+<meta property="og:url" content="https://visidocsverse.com/">
+<meta property="og:image" content="https://user.uploads.dev/file/1004514d8f2c3f732617b46fa0b06702.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="VisiDocsverse — Your documents, as a living universe">
+<meta name="twitter:description" content="Drop in PDFs, docs and notes — related ideas pull together with real gravity, and whatever you're reading sits at the center. Offline-first, for Windows.">
+<meta name="twitter:image" content="https://user.uploads.dev/file/1004514d8f2c3f732617b46fa0b06702.jpg">
+<link rel="icon" href="https://user.uploads.dev/file/d3fafab83015367c8e11dd9ec7d31a41.png">
+<style>
+:root{
+  --bg:#0a0e16; --bg2:#0e1422; --panel:#121a2b; --panel2:#16203280;
+  --ink:#eef2fb; --mut:#9aa7c2; --dim:#6b7791;
+  --gold:#ffce6b; --gold2:#f5b83f; --goldink:#2a1f08;
+  --blue:#7db4ff; --cyan:#7ef0d4; --rose:#ff9db1; --violet:#c4a8ff;
+  --line:rgba(255,206,107,.22); --line2:rgba(125,180,255,.16);
+  --r:16px; --max:1120px;
+  --shadow:0 24px 70px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,#1b2742 0%,transparent 60%),radial-gradient(900px 500px at 10% 0%,#231d3a 0%,transparent 55%),var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+/* NAV */
+.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(10,14,22,.78);border-bottom:1px solid rgba(255,255,255,.07)}
+.nav-in{display:flex;align-items:center;gap:16px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.08em;font-size:14px;text-decoration:none}
+.brand .mk{width:30px;height:30px;border-radius:9px;background:#14161c;border:1px solid rgba(255,255,255,.16);object-fit:contain;padding:2px}
+footer .fmark{width:22px;height:22px;border-radius:6px;vertical-align:-5px;margin-right:2px}
+section.block,#top{scroll-margin-top:70px}
+.nav-links{display:flex;gap:20px;margin-left:18px;font-size:14px;color:var(--mut)}
+.nav-links a{text-decoration:none}.nav-links a:hover{color:var(--ink)}
+.nav-cta{margin-left:auto;display:flex;gap:10px;align-items:center}
+ .nav-links a[href="#notai"]{color:var(--gold);font-weight:700}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:12px 20px;font-weight:700;font-size:15px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,background .12s ease}
+.btn-gold{background:linear-gradient(180deg,#ffdf9a 0%,#ffc93e 45%,#dd8f0e 100%);color:#160e00;font-weight:800;letter-spacing:.02em;border:1px solid rgba(112,72,6,.9);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 0 0 3px rgba(255,201,62,.28),0 10px 34px rgba(221,143,14,.6);text-shadow:0 1px 0 rgba(255,255,255,.35)}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.65),0 0 0 4px rgba(255,201,62,.38),0 14px 42px rgba(221,143,14,.7)}
+.btn-ghost{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:var(--ink)}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn-sm{padding:9px 14px;font-size:13.5px;border-radius:10px}
+.micro{font-size:12.5px;color:var(--mut)}
+/* HERO */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.06)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;padding:64px 0 54px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.2em;font-weight:800;color:var(--gold);text-transform:uppercase}
+.kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+h1{font-size:clamp(38px,5.2vw,60px);line-height:1.04;margin:14px 0 16px;letter-spacing:-.02em}
+h1 .gold{background:linear-gradient(180deg,#fff3d6,#ffce6b);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{font-size:clamp(16px,2vw,19px);line-height:1.65;color:var(--mut);margin:0 0 26px;max-width:56ch}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.trust{display:flex;gap:16px;flex-wrap:wrap;margin-top:18px;color:var(--mut);font-size:13.5px}
+.trust span{display:inline-flex;gap:7px;align-items:center}
+.hero-art{position:relative;background:linear-gradient(180deg,#101829,#0b1120);border:1px solid rgba(255,255,255,.09);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;min-height:440px}
+.hero-art video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#05080e}
+.hero-cap{margin:10px 4px 0;color:var(--mut);font-size:13px}
+.hero-cap .livedot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold);margin-right:7px}
+.chip{font-size:11.5px;font-weight:700;letter-spacing:.06em;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:var(--ink)}
+.chip.g{background:rgba(255,206,107,.16);border-color:rgba(255,206,107,.5);color:#ffe9bd}
+/* STRIP */
+.strip{border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.015)}
+.strip-in{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center;padding:16px 24px;color:var(--mut);font-size:13.5px}
+.strip b{color:var(--ink)}
+.pill{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);padding:6px 12px;border-radius:999px;font-size:13px}
+/* MOTION */
+.motion{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.shot{background:#0b1120;border:1px solid rgba(255,255,255,.1);border-radius:18px;overflow:hidden}
+.shot video{display:block;width:100%;aspect-ratio:960/356;background:#05080e}
+.shot .cap{padding:14px 18px;font-size:14px;color:var(--mut);line-height:1.6}
+.shot .cap b{color:var(--ink)}
+/* SECTIONS */
+section.block{padding:72px 0}
+.eyebrow{font-size:12px;letter-spacing:.22em;font-weight:800;color:var(--gold);text-transform:uppercase}
+h2{font-size:clamp(28px,3.6vw,42px);line-height:1.12;margin:12px 0 12px;letter-spacing:-.015em}
+.sub{color:var(--mut);font-size:17px;line-height:1.65;max-width:68ch;margin:0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:22px;position:relative;overflow:hidden}
+.card:hover{border-color:rgba(255,206,107,.4)}
+.card .ic{font-size:24px}
+.card .ph{display:block;width:calc(100% + 44px);margin:-22px -22px 16px;height:172px;object-fit:cover;background:#05080e;border-bottom:1px solid rgba(255,255,255,.09)}
+.card .real{position:absolute;top:132px;left:12px;font-size:10px;font-weight:800;letter-spacing:.14em;color:#ffe9bd;background:rgba(10,14,22,.82);border:1px solid rgba(255,206,107,.5);padding:4px 9px;border-radius:999px}
+.card h3{margin:10px 0 8px;font-size:18px}
+.card p{margin:0;color:var(--mut);font-size:14.5px;line-height:1.65}
+.card .tag{position:absolute;top:14px;right:14px;font-size:10.5px;font-weight:800;letter-spacing:.14em;color:var(--gold);border:1px solid var(--line);padding:4px 8px;border-radius:999px;background:rgba(255,206,107,.08)}
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px;counter-reset:step}
+.step{background:var(--panel);border:1px solid rgba(255,255,255,.09);border-radius:var(--r);padding:22px}
+.step .n{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:900;background:linear-gradient(180deg,#ffe1a0,#f5b83f);color:#241a05}
+.step h3{margin:12px 0 8px}.step p{margin:0;color:var(--mut);font-size:14.5px;line-height:1.65}
+/* VIEWS */
+.tabs{display:flex;gap:8px;margin:24px 0 16px;flex-wrap:wrap}
+.tab{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:var(--mut);padding:10px 16px;border-radius:999px;font-weight:700;font-size:14px;cursor:pointer}
+.tab.on{background:linear-gradient(180deg,#ffe1a0,#f5b83f);color:#241a05;border-color:transparent}
+.viewbox{background:#0b1120;border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:26px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
+.viewbox h3{margin:0 0 10px;font-size:22px}
+.viewbox p{color:var(--mut);line-height:1.7;margin:0 0 12px}
+.viewbox ul{margin:0;padding-left:18px;color:var(--mut);line-height:1.7}
+.orbits{position:relative;height:260px;background:radial-gradient(circle at 50% 50%,#16213a,#0b1120 70%);border-radius:14px;border:1px solid rgba(255,255,255,.08);overflow:hidden}
+.orbits svg{position:absolute;inset:0;width:100%;height:100%}
+.lgnd{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:12.5px;color:var(--mut)}
+/* POCKET-UNIVERSE DEMO */
+.demo-grid{display:grid;grid-template-columns:1.5fr .9fr;gap:16px;margin-top:28px;align-items:stretch}
+.demo-stage{position:relative;background:radial-gradient(circle at 50% 50%,#16213a,#0b1120 70%);border:1px solid rgba(255,255,255,.1);border-radius:18px;overflow:hidden;min-height:440px}
+.demo-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:pointer}
+.demo-hint{position:absolute;right:14px;bottom:12px;font-size:12px;color:var(--dim);pointer-events:none}
+.dpills{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.dpills span{font-size:11.5px;font-weight:700;border:1px solid var(--line);color:var(--gold);border-radius:999px;padding:3px 9px;background:rgba(255,206,107,.08)}
+.demo-panel p{color:var(--mut);font-size:14px;line-height:1.65}
+.demo-panel a{color:var(--gold);font-weight:700;text-decoration:none}
+.demo-panel a:hover{text-decoration:underline}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:26px}
+.stat{background:rgba(255,206,107,.06);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
+.stat b{font-size:26px;display:block;color:#ffe9bd}
+.stat span{font-size:12.5px;color:var(--mut)}
+/* PRICING */
+.price-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;margin-top:28px;align-items:start}
+.price-card{background:linear-gradient(180deg,#1a2338,#0f1626);border:1.5px solid rgba(255,206,107,.55);border-radius:20px;padding:30px;box-shadow:0 20px 60px rgba(245,184,63,.15)}
+.price-card .pl{font-size:12px;letter-spacing:.2em;font-weight:800;color:var(--gold)}
+.price-card h3{font-size:26px;margin:8px 0}
+.price{font-size:46px;font-weight:900;letter-spacing:-.02em}
+.price small{font-size:15px;color:var(--mut);font-weight:500}
+.feat{list-style:none;margin:18px 0 22px;padding:0;display:grid;gap:10px;color:var(--ink);font-size:14.5px}
+.feat li::before{content:"✓ ";color:var(--gold);font-weight:900}
+.side-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:22px}
+.side-card h4{margin:0 0 8px}.side-card p{margin:0 0 10px;color:var(--mut);font-size:14px;line-height:1.65}
+.txt-sample{margin:6px 0 0;max-height:300px;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;line-height:1.65;color:#cfe0f7;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:14px 16px;white-space:pre-wrap;overflow-wrap:anywhere}
+ /* NOT-AI */
+ .notai-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}
+ .notai-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:22px}
+ .notai-card.gold{border-color:rgba(255,206,107,.45);background:rgba(255,206,107,.05)}
+ .notai-card h3{margin:0 0 10px;font-size:17px}
+ .notai-card ul{margin:0;padding-left:18px;color:var(--mut);font-size:14.5px;line-height:1.7}
+ .notai-card ul b{color:var(--ink)}
+ .cmp-wrap{overflow-x:auto;margin-top:22px;border:1px solid rgba(255,255,255,.1);border-radius:var(--r);background:rgba(255,255,255,.02)}
+ table.cmp{width:100%;border-collapse:collapse;min-width:660px;font-size:14px}
+ table.cmp th,table.cmp td{padding:12px 14px;text-align:left;border-bottom:1px solid rgba(255,255,255,.07);line-height:1.55;vertical-align:top}
+ table.cmp thead th{background:rgba(255,255,255,.04);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+ table.cmp thead th:nth-child(2){color:var(--gold)}
+ table.cmp tbody th{color:var(--ink);font-weight:600;font-size:13.5px;max-width:260px}
+ table.cmp tbody th small{display:block;font-weight:400;color:var(--dim);font-size:12px;margin-top:2px}
+ table.cmp td{color:var(--mut)}
+ table.cmp td b{color:var(--ink)}
+ table.cmp td.ok{color:#b8e6c3}
+ table.cmp td.no{color:#e08a8a}
+ table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:none}
+ .who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+ .who{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:20px}
+ .who:hover{border-color:rgba(255,206,107,.4)}
+ .who .wic{font-size:22px}
+ .who h3{margin:8px 0 6px;font-size:16px}
+ .who p{margin:0;color:var(--mut);font-size:13.5px;line-height:1.65}
+ .who p b{color:var(--ink)}
+ .notai-note{margin-top:18px;color:var(--mut);font-size:14px;line-height:1.7;border-left:3px solid var(--gold);padding-left:14px;max-width:72ch}
+/* FAQ */
+.faq{margin-top:24px;display:grid;gap:10px}
+.faq details{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px}
+.faq summary{cursor:pointer;font-weight:700}
+.faq p{color:var(--mut);line-height:1.65;margin:10px 0 0;font-size:14.5px}
+/* FINAL */
+.final{background:linear-gradient(180deg,#141c31,#0a0e16);border:1px solid rgba(255,206,107,.3);border-radius:22px;padding:46px 30px;text-align:center;margin-top:10px}
+/* CONTACT FORM (posts to web3forms once the access key is set below) */
+.cform{margin-top:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:22px;text-align:left}
+.cform label{display:block;font-size:13px;color:var(--mut);margin:0 0 6px}
+.cform input,.cform textarea{display:block;width:100%;box-sizing:border-box;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 14px;color:var(--ink);font-size:15px;font-family:inherit;margin:0 0 14px}
+.cform input:focus,.cform textarea:focus{outline:none;border-color:var(--gold)}
+.cform textarea{min-height:120px;resize:vertical}
+.cform .hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+#cformStatus{font-size:14px;color:var(--mut);margin:10px 0 0;min-height:20px}
+#cformStatus.ok{color:#8fd694}#cformStatus.err{color:#ff9d9d}
+.final h2{margin-top:0}
+footer{border-top:1px solid rgba(255,255,255,.07);padding:26px 0 40px;color:var(--dim);font-size:13px}
+footer .wrap{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+/* REVEAL */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.rv.in{opacity:1;transform:none}
+@media(max-width:900px){
+  .nav-cta .btn-ghost{display:none}
+  .hero-grid,.grid3,.grid2,.steps,.price-wrap,.viewbox,.motion,.notai-grid,.who-grid,.demo-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .stats{grid-template-columns:1fr 1fr}
+  section.block{padding:52px 0}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+/* FOOT + LEGAL */
+footer .fl{display:flex;gap:18px;align-items:center}
+footer .fl a{color:var(--mut);font-size:13px;text-underline-offset:3px}
+footer .fl a:hover{color:var(--ink)}
+</style>
+<!-- Lemon Squeezy Core SDK & Affiliate Tracking -->
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+<script>
+  window.createLemonSqueezy = function () {
+    if (window.LemonSqueezy) {
+      // Setup LemonSqueezy listeners & affiliate cookie capture
+      window.LemonSqueezy.Setup({
+        eventHandler: (event) => {
+          try {
+            if (event === "mounted") window.__lsMountedAt = Date.now();
+            else if (event === "close") window.__lsOverlayOpen = false;
+          } catch (e) {}
+          console.log("Lemon Squeezy Event:", event);
+        }
+      });
+    }
+  };
+
+  // Affiliate capture: ?aff=CODE (or ?aff_ref=CODE) on a landing URL ->
+  // persisted ls_aff_ref cookie + localStorage backup, then forwarded into
+  // hosted checkout links (the SDK only appends aff_ref for overlay
+  // '.lemonsqueezy-button' checkouts, so plain links are stamped here).
+  (function () {
+    function getParam(n) { try { return new URLSearchParams(window.location.search).get(n); } catch (e) { return null; } }
+    function readCookie(n) { try { var p = document.cookie.split(";"); for (var i = 0; i < p.length; i++) { var c = p[i].replace(/^\s+/, ""); if (c.indexOf(n + "=") === 0) return decodeURIComponent(c.slice(n.length + 1)); } } catch (e) {} return null; }
+    function storedRef() { return readCookie("ls_aff_ref") || (function () { try { return localStorage.getItem("ls_aff_ref"); } catch (e) { return null; } })(); }
+    var code = getParam("aff") || getParam("aff_ref");
+    if (code) { try { document.cookie = "ls_aff_ref=" + encodeURIComponent(code) + "; max-age=31536000; path=/; SameSite=Lax"; localStorage.setItem("ls_aff_ref", code); } catch (e) {} }
+    function stamp() {
+      var ref = storedRef();
+      if (!ref) return;
+      document.querySelectorAll('a[href*="lemonsqueezy.com/checkout"]').forEach(function (a) {
+        try { var u = new URL(a.href); if (!u.searchParams.get("aff_ref")) { u.searchParams.set("aff_ref", ref); a.href = u.toString(); } } catch (e) {}
+      });
+    }
+    document.addEventListener("DOMContentLoaded", stamp);
+    window.addEventListener("load", stamp);
+    var sealedPreview = String(window.location.href).indexOf("about:srcdoc") === 0;
+    function lsToast(msg) {
+      try {
+        var d = document.createElement("div");
+        d.textContent = msg;
+        d.setAttribute("style", "position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:2147483647;background:rgba(10,14,22,.94);color:#ffe9bd;border:1px solid rgba(255,206,107,.55);border-radius:12px;padding:12px 18px;font:14px/1.5 system-ui,sans-serif;max-width:min(520px,90vw);text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.5)");
+        document.body.appendChild(d);
+        setTimeout(function () { try { d.remove(); } catch (e) {} }, 4200);
+      } catch (e) {}
+    }
+    if (sealedPreview) {
+      // Sealed editor previews sandbox the page (no forms/same-origin/popups),
+      // so the payment overlay can never boot there — it would stick on its
+      // loading veil forever. Disable overlay binding before the SDK\u2019s
+      // load-time hookup and say so on click instead of breaking the page.
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll("a.lemonsqueezy-button").forEach(function (a) {
+          a.classList.remove("lemonsqueezy-button");
+          a.addEventListener("click", function (ev) {
+            ev.preventDefault();
+            lsToast("Checkout opens on the live site — this sealed preview cannot load payment pages.");
+          });
+        });
+      });
+    } else {
+      // Stuck-veil fallback for real browsers: if the overlay opened but the
+      // checkout never reports "mounted" (blocked third-party cookies, broken
+      // embed, stalled network), close it and fall back to a plain new tab
+      // instead of leaving the buyer staring at the loading veil.
+      document.addEventListener("click", function (e) {
+        var a = e.target && e.target.closest ? e.target.closest("a.lemonsqueezy-button") : null;
+        if (!a || !a.href) return;
+        var href = a.href;
+        window.__lsOverlayOpen = true;
+        window.__lsMountedAt = 0;
+        var wait = (typeof window.__lsOverlayTimeoutMs === "number") ? window.__lsOverlayTimeoutMs : 15000;
+        setTimeout(function () {
+          if (!window.__lsOverlayOpen || window.__lsMountedAt) return;
+          if (!document.body || !document.body.classList.contains("lemonsqueezy-open")) { window.__lsOverlayOpen = false; return; }
+          try { if (window.LemonSqueezy && window.LemonSqueezy.Url) window.LemonSqueezy.Url.Close(); } catch (err) {}
+          window.__lsOverlayOpen = false;
+          try { window.open(href, "_blank", "noopener"); } catch (err) { try { window.location.href = href; } catch (e2) {} }
+        }, wait + 700);
+      });
+    }
+  })();
+
+  // Run setup once the SDK is ready. lemon.js creates window.LemonSqueezy on
+  // window load (after DOMContentLoaded), and never fires lemonSqueezyLoaded,
+  // so poll as a fallback to guarantee Setup() always runs.
+  (function () {
+    var tries = 0;
+    function ready() {
+      if (window.LemonSqueezy && window.LemonSqueezy.Setup) { window.createLemonSqueezy(); return; }
+      if (++tries < 100) setTimeout(ready, 100);
+    }
+    function onReady() {
+      if (window.LemonSqueezy && window.LemonSqueezy.Setup) window.createLemonSqueezy();
+      else { window.addEventListener("lemonSqueezyLoaded", window.createLemonSqueezy); ready(); }
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", onReady);
+    else onReady();
+  })();
+</script>
+</head>
+<body>
+<nav class="nav"><div class="wrap nav-in">
+  <a class="brand" href="#top"><img class="mk" src="https://user.uploads.dev/file/b93761de2d015e095c3c609bbd6d32b6.png" alt="VisiDocsverse logo" width="30" height="30"> VISIDOCSVERSE</a>
+  <div class="nav-links">
+    <a href="#features">Features</a><a href="#motion">How it works</a><a href="#views">Views</a><a href="#offline">Offline</a><a href="#notai">Not AI</a><a href="#handoff">Handoff</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+  </div>
+  <div class="nav-cta">
+    <a class="lemonsqueezy-button btn btn-gold btn-sm" href="https://paymentprocessor.lemonsqueezy.com/checkout/buy/497cede5-0dda-4ae4-8e20-36e18dfbc42b" target="_blank" rel="noopener">Get VisiDocsverse</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap hero-grid">
+  <div>
+    <span class="kicker"><span class="dot"></span> For researchers · writers · analysts · the document-drowned</span>
+    <h1>Your documents,<br>as a <span class="gold">living universe.</span></h1>
+    <p class="lede">Drop in PDFs, Word files, spreadsheets, slides, notes, even photos of text. VisiDocsverse hangs every document in 3D space — <b style="color:var(--ink)">related ideas pull together with real gravity</b>, and whatever you're reading sits at the center while everything it connects to orbits around it. Stop hunting through folders. <b style="color:var(--ink)">Navigate by meaning.</b></p>
+    <div class="cta-row">
+      <a class="lemonsqueezy-button btn btn-gold" href="https://paymentprocessor.lemonsqueezy.com/checkout/buy/497cede5-0dda-4ae4-8e20-36e18dfbc42b" target="_blank" rel="noopener">Get VisiDocsverse →</a>
+      <a class="btn btn-ghost" href="#motion">▶ &nbsp;See how it works</a>
+    </div>
+    <div class="trust">
+      <span>🔒 Offline-first — files never leave your PC</span>
+      <span>🪟 Windows app</span>
+      <span>🔁 $4/month subscription</span>
+    </div>
+    <p class="micro" style="margin-top:10px">Billed twice a year ($24 every 6 months) · Cancel anytime · Your vault stays readable on your machine, always.</p>
+  </div>
+  <div>
+  <div class="hero-art rv">
+    <video src="https://user.uploads.dev/file/da93c76f14cdfccc21a4ac4832ecc293.webm" autoplay muted loop playsinline preload="metadata" aria-label="Screen recording of the VisiDocsverse app"></video>
+  </div>
+  <p class="micro hero-cap"><span class="livedot"></span>Real app footage — Main view · 8-second loop</p>
+  </div>
+</div></header>
+
+<div class="strip"><div class="wrap strip-in">
+  <span><b>Built for people buried in documents</b> — theses, cases, reports, scripts, lore bibles:</span>
+  <span class="pill">🎓 Researchers</span><span class="pill">📝 Writers</span><span class="pill">⚖️ Lawyers</span><span class="pill">📊 Analysts</span><span class="pill">🎲 Worldbuilders</span>
+</div></div>
+
+<section class="block" id="motion" style="padding-top:56px"><div class="wrap">
+  <div class="eyebrow rv">Real app, real motion</div>
+  <h2 class="rv">Watch gravity work.</h2>
+  <p class="sub rv">Captured live from the app — no mockups, no animation. Documents orbit, tethers glow, search spotlights the matches.</p>
+  <div class="motion">
+    <div class="shot rv"><a href="moment-intake.html" aria-label="Open the full From intake to orbit page"><video src="https://user.uploads.dev/file/4364964de0cba6e624c88c21fae13e68.webm" autoplay muted loop playsinline preload="metadata"></video></a><div class="cap"><b>From intake to orbit.</b> Drop a folder — 12 documents captured, parsed and seated in the universe. This is where every constellation starts: the intake panel, then the slow gyre. <a href="moment-intake.html">Open full view →</a></div></div>
+    <div class="shot rv"><a href="moment-locate.html" aria-label="Open the full Easy-locate documents page"><video src="https://user.uploads.dev/file/c3d228ae5afc2ba095b8014200053ed7.webm" autoplay muted loop playsinline preload="metadata"></video></a><div class="cap"><b>Easy-locate documents.</b> Click on a body (document) and see where it is the reader pane inventory. <a href="moment-locate.html">Open full view →</a></div></div>
+    <div class="shot rv"><a href="moment-read.html" aria-label="Open the full Click to read page"><video src="https://user.uploads.dev/file/bdb262294b5f2240c32c996af2e66862.webm" autoplay muted loop playsinline preload="metadata"></video></a><div class="cap"><b>Click to read.</b> Touch any body and the reader docks beside it — full text, tags and notes riding above — while everything it connects to stays in view. <a href="moment-read.html">Open full view →</a></div></div>
+    <div class="shot rv"><a href="moment-tethers.html" aria-label="Open the full Context stays tethered page"><video src="https://user.uploads.dev/file/2d82fd59831da819279ecc8dd1314360.webm" autoplay muted loop playsinline preload="metadata"></video></a><div class="cap"><b>Context stays tethered.</b> The open document keeps its glowing lines to every related body. Follow a tether to hop the neighborhood without losing your place. <a href="moment-tethers.html">Open full view →</a></div></div>
+  </div>
+</div></section>
+
+<section class="block" id="features"><div class="wrap">
+  <div class="eyebrow rv">Why it hits different</div>
+  <h2 class="rv">Folders show names.<br>VisiDocsverse shows <span style="color:var(--gold)">relationships.</span></h2>
+  <p class="sub rv">A folder can't tell you that page 14 of one PDF answers chapter 3 of another. Gravity can. Documents that share tags, topics and references physically pull toward each other — clusters form on their own, outliers drift alone, and the structure of your thinking becomes something you can <i>see</i>.</p>
+  <div class="grid2">
+    <div class="card rv"><a href="moment-search.html" aria-label="Open the full Keyword search through documents page"><video class="ph" style="object-position:top" src="https://user.uploads.dev/file/41454dc05b1faef1e4bf684ce0836938.webm" poster="https://user.uploads.dev/file/07f79f7e60b2bfe395d07d12a64b041a.jpg" autoplay muted loop playsinline preload="auto"></video></a><span class="real">◉ REAL APP</span><div class="ic">🔍</div><h3>Keyword search through documents</h3><p>Pictured: a live search for <b>“leadership”</b> — the word lights up <b>gold at every hit</b> inside the open document, while the universe, its tethers and the minimap stay exactly where they were. Full-text search across every file at once; walk hit to hit without ever leaving the map.</p><a href="moment-search.html" style="display:inline-block;margin-top:10px;color:var(--gold);font-weight:700;font-size:14px;text-decoration:none">Open full view →</a></div>
+    <div class="card rv"><a href="moment-themes.html" aria-label="Open the full Thematic view page"><video class="ph" style="object-position:top" src="https://user.uploads.dev/file/5a6daf54fc8c9549818a3d325bbe2310.webm" poster="https://user.uploads.dev/file/cd1d8286e9c58ea7e612a4674767d8f5.jpg" autoplay muted loop playsinline preload="auto"></video></a><span class="real">◉ REAL APP</span><div class="ic">🧠</div><h3>Thematic view: ideas as bodies</h3><p>Pictured: the corpus re-webbed around ideas — glowing <b>theme bodies</b> (“Outcomes”, “Health”) ringed by their member documents and tethered to each other. One click re-webs the whole corpus this way — click a theme for its members in the project-tag panel, drill into any one.</p><a href="moment-themes.html" style="display:inline-block;margin-top:10px;color:var(--gold);font-weight:700;font-size:14px;text-decoration:none">Open full view →</a></div>
+    <div class="card rv"><a href="moment-tags.html" aria-label="Open the full Tags view page"><video class="ph" style="object-position:top" src="https://user.uploads.dev/file/5df0d0e92a0570b0cb0a710dd9d7aca5.webm" poster="https://user.uploads.dev/file/2e296917522c0770c9059a2c1ba6140c.jpg" autoplay muted loop playsinline preload="auto"></video></a><span class="real">◉ REAL APP</span><div class="ic">🏷️</div><h3>Tags view: your labels, mapped</h3><p>Pictured: this library's real <b>tag web</b> — glowing label-bodies joined wherever two labels share documents, with the <b>ALL TAGS panel</b> open over all 37 pills. Browse, merge and rename pills; the map rewires itself. Click a tag for its member documents in the side panel.</p><a href="moment-tags.html" style="display:inline-block;margin-top:10px;color:var(--gold);font-weight:700;font-size:14px;text-decoration:none">Open full view →</a></div>
+    <div class="card rv"><a href="moment-notes.html" aria-label="Open the full Notes on the map page"><video class="ph" style="object-position:top" src="https://user.uploads.dev/file/984a960c211d26baee097a216dcf67ff.webm" poster="https://user.uploads.dev/file/27ba043414413a257429ee7925c3faeb.jpg" autoplay muted loop playsinline preload="auto"></video></a><span class="real">◉ REAL APP</span><div class="ic">📌</div><h3>Notes that live on the map</h3><p>Pictured: the notes composer for a document — “Write a note about this document…”, Save, and <b>“+ Add selection from document”</b> — inside the panel listing the tag's member documents, while the gold sun holds the active body. Sticky square on the canvas, reader button and this panel are <b>the same list</b>.</p><a href="moment-notes.html" style="display:inline-block;margin-top:10px;color:var(--gold);font-weight:700;font-size:14px;text-decoration:none">Open full view →</a></div>
+  </div>
+</div></section>
+
+<section class="block" id="how" style="background:rgba(255,255,255,.015);border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)"><div class="wrap">
+  <div class="eyebrow rv">From chaos to constellation in minutes</div>
+  <h2 class="rv">Three steps. Zero organizing.</h2>
+  <div class="steps">
+    <div class="step rv"><div class="n">1</div><h3>Drop your files in</h3><p>Drag a folder — or 60 files at once. VisiDocsverse reads text, images inside documents, even photographed pages, computes mass and tags, and seats every body in orbit. Your first sun crowns itself.</p></div>
+    <div class="step rv"><div class="n">2</div><h3>Fly the gravity</h3><p>Drag to orbit, scroll to dive, double-click to recenter. Related bodies glow and tether when you touch one. Switch MAIN / THEMATIC / TAGS to see documents, ideas, or labels.</p></div>
+    <div class="step rv"><div class="n">3</div><h3>Read at the center</h3><p>Click any body — it becomes the sun and the reader opens on it, ringed by everything it connects to. Pin passages to notes, merge tags, follow backlinks. Off-click to release.</p></div>
+  </div>
+  <div class="stats rv">
+    <div class="stat"><b data-n="11">0</b><span>file formats read natively</span></div>
+    <div class="stat"><b data-n="3">0</b><span>universe views (docs · ideas · labels)</span></div>
+    <div class="stat"><b data-n="60">0</b><span>files per drag-drop batch</span></div>
+    <div class="stat"><b data-n="100">0</b><span>% offline — your files stay yours</span></div>
+  </div>
+</div></section>
+
+<section class="block" id="views"><div class="wrap">
+  <div class="eyebrow rv">One corpus, three brains</div>
+  <h2 class="rv">See the same work three ways.</h2>
+  <p class="sub rv">Every view is live physics, not a static chart. Pick one — the same documents rearrange around what you asked.</p>
+  <div class="tabs rv" role="tablist" aria-label="Universe views">
+    <button class="tab on" role="tab" aria-selected="true" tabindex="0" data-v="main">◌ MAIN — documents</button>
+    <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-v="the">✦ THEMATIC — ideas</button>
+    <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-v="tags">🏷 TAGS — labels</button>
+  </div>
+  <div class="viewbox rv">
+    <div>
+      <h3 id="viewTitle">Main: every document as itself</h3>
+      <p id="viewDesc">Each file is a body sized by its mass. Shared tags and references become glowing tethers, so related work clusters on its own and loners drift to the rim where they belong.</p>
+      <ul id="viewList"><li>Click any body → it glides home as the sun</li><li>Gold halo = what you're reading; gold lines = its shared ground</li><li>Box-select, copy between canvases, quantum twins stay in lockstep</li></ul>
+    </div>
+    <div><div class="orbits" id="orbitBox">
+      <svg viewBox="0 0 400 260" id="orbitSvg" aria-hidden="true"></svg>
+    </div><div class="lgnd"><span>🟡 sun = active document</span><span>🔵 body = document</span><span>〰️ tether = shared ground</span></div></div>
+  </div>
+</div></section>
+
+<section class="block" id="demo"><div class="wrap">
+  <div class="eyebrow rv">Hands on</div>
+  <h2 class="rv">Fly a pocket universe.</h2>
+  <p class="sub rv">A real miniature of the app's physics — twelve documents from a sample thesis, tethered by what they share. <b style="color:var(--ink)">Click any body</b> to read it at the center; follow its tethers to hop. Nothing leaves your browser.</p>
+  <div class="demo-grid rv">
+    <div class="demo-stage"><canvas id="demoCv" aria-label="Interactive pocket document universe. Click a body to read it."></canvas><div class="demo-hint" id="demoHint">click a body →</div></div>
+    <div class="side-card demo-panel">
+      <h4 id="demoTitle">12 documents in orbit</h4>
+      <div class="dpills" id="demoTags"></div>
+      <p id="demoExcerpt">Pick any glowing body to dock the reader on it — its tethers light up gold and everything it connects to is one click away.</p>
+      <p class="micro" id="demoLinks" style="margin-bottom:12px"></p>
+      <button class="btn btn-ghost btn-sm" id="demoReset" type="button">Reset view</button>
+    </div>
+  </div>
+</div></section>
+
+<section class="block" id="offline" style="background:rgba(255,255,255,.015);border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)"><div class="wrap">
+  <div class="grid2">
+    <div class="rv">
+      <div class="eyebrow">Private by architecture</div>
+      <h2>Your files never<br>leave your machine.</h2>
+      <p class="sub">No cloud to breach, no upload queue, no “AI training on your thesis.” The vault lives in your PC, every format engine is vendored inside the app, and OCR runs locally. Unplug the internet — everything still works.</p>
+      <div class="cta-row" style="margin-top:22px"><a class="lemonsqueezy-button btn btn-gold" href="https://paymentprocessor.lemonsqueezy.com/checkout/buy/497cede5-0dda-4ae4-8e20-36e18dfbc42b" target="_blank" rel="noopener">Get VisiDocsverse →</a></div>
+    </div>
+    <div class="side-card rv"><h4>🔒 What “offline-first” actually means here</h4>
+      <p>✓ All parsing (PDF, Word, Excel, PowerPoint, OCR) runs inside the app — zero network calls for your content.</p>
+      <p>✓ License check phones home at most once a week; a 7-day grace keeps you working offline.</p>
+      <p>✓ Backups are files <i>you</i> hold. Restore on any machine with your key.</p>
+      <p class="micro">The only network traffic: license activation, weekly check, and update notices. Never your documents.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="block" id="notai"><div class="wrap">
+  <div class="eyebrow rv">Not AI — on purpose</div>
+  <h2 class="rv">Built for people who won't<br>outsource their thinking.</h2>
+  <p class="sub rv">VisiDocsverse contains <b style="color:var(--ink)">no generative AI, no chatbot, no summarizer</b>. Nothing is paraphrased, guessed, or “helpfully” rewritten. The app maps what your documents <i>actually share</i> — tags, topics, references — with deterministic rules, so the same files always produce the same universe. <b style="color:var(--ink)">You read. You connect. You decide.</b> The software just makes the relationships visible so your judgment gets sharper instead of replaced.</p>
+  <div class="notai-grid">
+    <div class="notai-card gold rv"><h3>🧭 What VisiDocsverse does instead</h3>
+      <ul>
+        <li><b>Shows every source in place.</b> Each document stays whole, readable, and clickable at the center of its own neighborhood.</li>
+        <li><b>Links you can verify.</b> Every tether is shared ground you can open — a tag, a topic, a reference — not a generated claim.</li>
+        <li><b>Same files → same map, every time.</b> Deterministic physics. Reopen tomorrow and the constellation is where you left it.</li>
+        <li><b>Thinking aid, not answer machine.</b> It organizes the evidence; the interpretation stays yours.</li>
+      </ul>
+    </div>
+    <div class="notai-card rv"><h3>⚠️ Why AI is an unreliable partner for documents</h3>
+      <ul>
+        <li><b>Ask twice, get two different answers.</b> The same set of documents can produce a different synthesis on every run — which version do you cite?</li>
+        <li><b>Sources flattened into a paragraph.</b> Summaries bury the document you needed to actually read, and confident phrasing hides the gaps.</li>
+        <li><b>Citations you still have to check.</b> A fluent answer with a wrong page number costs more time than finding the passage yourself.</li>
+        <li><b>Your files leave the room.</b> Cloud models upload, retain, or train on what you paste — a non-starter for theses, cases, and client work.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cmp-wrap rv">
+    <table class="cmp" aria-label="VisiDocsverse compared with a typical AI assistant">
+      <thead><tr><th scope="col">What matters</th><th scope="col">✓ VisiDocsverse</th><th scope="col">Typical AI assistant</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Same documents → same result, every time<small>Determinism you can build on</small></th><td class="ok"><b>✓ Yes</b> — deterministic map &amp; physics</td><td class="no">✗ No — answers vary run to run</td></tr>
+        <tr><th scope="row">Every claim stays attached to its document<small>Nothing summarized away</small></th><td class="ok"><b>✓ Yes</b> — full text one click away</td><td class="no">~ Partial — buried in a summary</td></tr>
+        <tr><th scope="row">Links you can click and verify<small>Tether = shared tag, topic, or reference</small></th><td class="ok"><b>✓ Yes</b> — open the shared ground itself</td><td class="no">✗ Risky — citations can hallucinate</td></tr>
+        <tr><th scope="row">Works fully offline<small>Plane, archive, fieldwork</small></th><td class="ok"><b>✓ Yes</b> — 100% local</td><td class="no">✗ No — needs the cloud</td></tr>
+        <tr><th scope="row">Your files never train a model<small>Private by architecture</small></th><td class="ok"><b>✓ Never</b> — stays on your PC</td><td class="no">✗ Uploaded, retained, or trained on</td></tr>
+        <tr><th scope="row">Who does the interpreting?<small>The part that makes it your work</small></th><td class="ok"><b>✓ You do</b> — the tool sharpens judgment</td><td class="no">✗ It does — you proofread it</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3 class="rv" style="margin:34px 0 4px;font-size:20px">What that means for you</h3>
+  <p class="sub rv" style="font-size:15.5px">If your work has to be <i>yours</i> — defensible, citable, original — a map beats a mouthpiece.</p>
+  <div class="who-grid">
+    <div class="who rv"><div class="wic">🎓</div><h3>Researchers</h3><p>Literature reviews <b>without drift</b>. The same corpus maps the same way for you, your advisor, and your examiner — every connection traceable to a passage.</p></div>
+    <div class="who rv"><div class="wic">📝</div><h3>Writers</h3><p>Keep plots, arguments, and sources <b>consistent</b>. See what each chapter actually connects to instead of asking a chatbot what you wrote.</p></div>
+    <div class="who rv"><div class="wic">⚖️</div><h3>Lawyers</h3><p>Same exhibits → <b>same map</b>. No hallucinated clause, no invented citation — just exhibits, tethered by what they share, ready for brief.</p></div>
+    <div class="who rv"><div class="wic">📊</div><h3>Analysts</h3><p>Reports you can <b>audit</b>. Follow any cluster back to its files and show your work — “the model said so” never appears in the chain.</p></div>
+    <div class="who rv"><div class="wic">🎲</div><h3>Worldbuilders</h3><p>Lore bibles that stay <b>coherent</b>. Characters, places, and timelines pull together by what they share, so contradictions surface visually.</p></div>
+    <div class="who rv"><div class="wic">📚</div><h3>Students</h3><p>Learn by <b>navigating</b>, not copying. Flying the map builds the mental model that a generated essay would have skipped.</p></div>
+  </div>
+  <p class="notai-note rv">Use AI wherever you like — then bring the files back here to think. VisiDocsverse never competes with your judgment; it gives that judgment somewhere to stand: <b style="color:var(--ink)">the center of your own universe.</b></p>
+</div></section>
+
+<section class="block" id="handoff"><div class="wrap">
+  <div class="eyebrow rv">Notes → first draft</div>
+  <h2 class="rv">Your thinking, packed<br>for the <span style="color:var(--gold)">writing desk.</span></h2>
+  <p class="sub rv">One click gathers every note you wrote — grouped per document, each followed by the workspace documents most similar to it, with the shared words shown so every link is checkable — into a plain <b style="color:var(--ink)">.txt</b>. Paste it into any AI chat to draft from <i>your</i> research, with a starter instruction that demands a <b style="color:var(--ink)">[Document N]</b> citation for every claim and a <b style="color:var(--ink)">[NEEDS SOURCE]</b> flag wherever the notes run out. The app itself still contains no AI; the judgment stays yours, the draft just starts closer to finished. Built and saved on your machine — nothing uploaded, ever.</p>
+  <div class="grid2">
+    <div class="side-card rv"><h4>📄 What lands in the file</h4>
+      <p>✓ Every note, oldest-first, with date + source page (p. N)</p>
+      <p>✓ Original filename + APA citation for every document</p>
+      <p>✓ Each noted document's closest workspace mates, with scores</p>
+      <p>✓ The shared words behind every link — verify each one</p>
+      <p>✓ A starter instruction: cite [Document N], flag [NEEDS SOURCE]</p>
+      <p class="micro">One section per document lineage — copies never double-count. Included with VisiDocsverse, no extra cost.</p>
+    </div>
+    <div class="side-card rv"><h4>✂️ Straight from a real export</h4>
+      <pre class="txt-sample">VISIDOCSVERSE RESEARCH HANDOFF
+Exported 2026-11-10 · 40 documents, 8 with notes
+
+========== [Document 1] "Field interviews.pdf" ==========
+File: Field interviews.pdf
+APA: Field interviews. (n.d.).
+Note (2026-10-02 · p. 12):
+Saturation hit around interview nine — the same
+three reasons for leaving, nearly word for word.
+Most similar in your workspace:
+  - "Thesis Ch3.pdf" (0.42; shared: coding, saturation, memo)</pre>
+    </div>
+  </div>
+</div></section>
+
+<!-- TESTIMONIALS: swap the three placeholder cards below with genuine customer
+     words as they come in (ask permission first). -->
+<section class="block" id="love"><div class="wrap">
+  <div class="eyebrow rv">Wall of love</div>
+  <h2 class="rv">Buried people, breathing again.</h2>
+  <p class="sub rv">This is what people have told us about VISIDOCSVERSE.</p>
+  <div class="grid3">
+    <div class="card rv"><div class="ic">★★★★★</div><p>“My thesis stopped being a folder and started being a place. I found a connection between two chapters I'd never have linked.”</p></div>
+    <div class="card rv"><div class="ic">★★★★★</div><p>“It doesn't guess for me — it just shows me what my own files share. That's exactly the help I wanted.”</p></div>
+    <div class="card rv"><div class="ic">★★★★★</div><p>“Same exhibits, same map, every time I open it. I can actually cite what's on screen.”</p></div>
+  </div>
+  <p class="micro rv" style="margin-top:16px">Using VisiDocsverse? <a href="#contact" style="color:var(--gold)">Send us your words</a> — we'd love to feature you.</p>
+</div></section>
+
+<section class="block" id="pricing"><div class="wrap">
+  <div class="eyebrow rv">Simple, honest pricing</div>
+  <h2 class="rv">One subscription. Your universe, always current.</h2>
+  <p class="sub rv">$4/month, billed twice a year ($24 every 6 months). No per-document pricing. No features held hostage in tiers. Cancel anytime.</p>
+  <div class="price-wrap">
+    <div class="price-card rv">
+      <div class="pl">VISIDOCSVERSE · WINDOWS</div>
+      <h3>Subscription</h3>
+      <div class="price">$4<small>/month · billed twice a year ($24 every 6 months)</small></div>
+      <ul class="feat">
+        <li>Full app — all 3 universe views, reader, notes, OCR, canvases</li>
+        <li>Reads PDF · Word · Excel · PowerPoint · MD · CSV · media · images</li>
+        <li>Offline-first vault — your files stay on your PC</li>
+        <li>All updates included while subscribed</li>
+        <li>Use on your Windows machines with your key</li>
+      </ul>
+      <a class="lemonsqueezy-button btn btn-gold" style="width:100%" href="https://paymentprocessor.lemonsqueezy.com/checkout/buy/497cede5-0dda-4ae4-8e20-36e18dfbc42b" target="_blank" rel="noopener">Get VisiDocsverse →</a>
+      <p class="micro" style="text-align:center;margin:12px 0 0">Secure checkout · License key emailed instantly · Activate in-app · Cancel anytime</p>
+    </div>
+    <div class="side-card rv"><h4>❓ How does the subscription work?</h4><p>$4/month, charged as $24 every 6 months. Your key stays active while subscribed; the license check is a lightweight weekly ping with a full week of offline grace — and your vault files are always readable on your machine, whatever happens.</p><h4 style="margin-top:16px">🖥 Requirements</h4><p>Windows 10/11 (64-bit). No account, no cloud, no GPU needed — the universe is a tuned Canvas renderer that stays smooth on modest machines.</p></div>
+  </div>
+</div></section>
+
+<section class="block" id="faq"><div class="wrap">
+  <div class="eyebrow rv">Questions, answered</div>
+  <h2 class="rv">FAQ</h2>
+  <div class="faq rv">
+    <details open><summary>What exactly does VisiDocsverse do with my documents?</summary><p>It turns each file into a body in a 3D physics space. Documents that share tags, topics, filename concepts or explicit references pull toward each other with spring tethers; heavier documents (more words + references) pull harder. You read any file at the center with everything related orbiting it.</p></details>
+    <details><summary>Which formats can I import?</summary><p>PDF, Word (.docx), Excel (.xlsx/.xls, per-sheet), PowerPoint (.pptx), Markdown, plain text, CSV, video (.mp4/.mov/.webm), audio (.mp3/.wav/.m4a/.ogg), and photos (.jpg/.png/.gif/.webp). Embedded pictures import too, and photographed text is OCR'd locally so it tags, tethers and searches like typed text.</p></details>
+    <details><summary>Does it upload my files anywhere?</summary><p>No. Everything — parsing, OCR, search, storage — runs on your PC. The only network calls are license activation, a weekly license check (with 7-day offline grace), and update notices.</p></details>
+    <details><summary>Does VisiDocsverse use AI?</summary><p>No — deliberately. There is no chatbot, no summarizer, no generative model anywhere in the app. Mapping is deterministic: the same documents always produce the same universe, every link is shared ground you can open and verify, and the interpretation stays yours. That is the point — it is built for people who don't want to outsource their thinking. See <a href="#notai" style="color:var(--gold)">Not AI — on purpose</a>.</p></details>
+    <details><summary>How is this different from Obsidian / Notion / Zotero?</summary><p>Those are brilliant filing cabinets. VisiDocsverse is an observatory: instead of lists of names, you get a live map of how your documents relate — ideas as bodies (Thematic), labels as bodies (Tags), plus drag-to-merge tags, passage-pinned notes, and multi-canvas project universes.</p></details>
+    <details><summary>What do I get when I subscribe?</summary><p>A license key emailed instantly by Lemon Squeezy. Paste it into the app once to activate — it stays valid while your $4/month subscription (billed $24 twice a year) is active. Updates arrive with an in-app banner; your existing library and notes are never touched by updates, and your vault files stay readable on your machine, always. Cancel anytime.</p></details>
+    <details><summary>What if I have hundreds of files?</summary><p>That's the point. Box-select, fit-to-screen, distribute-into-orb map mode, per-canvas universes, and the verse-map minimap keep big collections navigable. Mass-ranked seating means the heavyweights anchor the center automatically.</p></details>
+  </div>
+</div></section>
+
+<section class="block" id="contact"><div class="wrap" style="max-width:760px">
+  <div class="eyebrow rv">Contact</div>
+  <h2 class="rv">Talk to a human.</h2>
+  <p class="sub rv">Support, billing questions, or something broken — we read everything.</p>
+  <div class="side-card rv"><h4>📬 Support & billing</h4><p>For billing, invoices, or canceling a subscription: open your Lemon Squeezy order page (by clicking on the links sent to your email by Lemon Squeezy when you subscribed and at each new billing cycle) and manage everything from there.</p><p style="margin-bottom:0">For other queries, or if you wish to buy for a team or institution: send us a message here and we'll get back to you as quickly as we can.</p></div>
+  <form class="cform rv" id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+    <!-- WEB3FORMS: paste the access key from web3forms.com below to go live (nothing else changes) -->
+    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+    <input type="hidden" name="subject" value="New website message — VisiDocsverse">
+    <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+    <label for="cfName">Your name</label>
+    <input id="cfName" type="text" name="name" placeholder="Jane Researcher" required autocomplete="name">
+    <label for="cfEmail">Your email</label>
+    <input id="cfEmail" type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+    <label for="cfMsg">Message</label>
+    <textarea id="cfMsg" name="message" placeholder="How can we help?" required></textarea>
+    <button class="btn btn-gold" type="submit" id="cfSend" style="width:100%">Send message →</button>
+    <p id="cformStatus" role="status" aria-live="polite"></p>
+  </form>
+  <script>
+  (function(){
+    var f=document.getElementById('contactForm');if(!f)return;
+    var st=document.getElementById('cformStatus'),btn=document.getElementById('cfSend');
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      var key=(f.querySelector('input[name="access_key"]')||{}).value||'';
+      if(!key||key==='YOUR_ACCESS_KEY_HERE'){st.className='';st.textContent='Messaging opens shortly — for now reach us via your Lemon Squeezy order page or a receipt-email reply.';return;}
+      if(!f.checkValidity()){st.className='err';st.textContent='Please fill in your name, a valid email, and a message.';f.reportValidity();return;}
+      btn.disabled=true;st.className='';st.textContent='Sending…';
+      fetch(f.action,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(f)))})
+        .then(function(r){return r.json();})
+        .then(function(d){btn.disabled=false;if(d&&d.success){st.className='ok';st.textContent='Message sent — we\u2019ll get back to you as quickly as we can.';f.reset();}else{st.className='err';st.textContent='Send failed — please try again or reach us via your order page.';}})
+        .catch(function(){btn.disabled=false;st.className='err';st.textContent='Send failed — please try again or reach us via your order page.';});
+    });
+  })();
+  </script>
+</div></section>
+
+<section class="block"><div class="wrap"><div class="final rv">
+  <div class="eyebrow">Stop filing. Start flying.</div>
+  <h2>Your library is already a universe.<br>Come see it.</h2>
+  <p class="sub" style="margin:0 auto 26px;text-align:center">Join the researchers, writers and analysts who read at the center of gravity.</p>
+  <a class="lemonsqueezy-button btn btn-gold" style="font-size:17px;padding:15px 34px" href="https://paymentprocessor.lemonsqueezy.com/checkout/buy/497cede5-0dda-4ae4-8e20-36e18dfbc42b" target="_blank" rel="noopener">Get VisiDocsverse →</a>
+  <p class="micro" style="margin-top:14px">Windows 10/11 · Offline-first · $4/month, billed twice a year · Cancel anytime</p>
+</div></div></section>
+
+<footer><div class="wrap">
+  <span><img class="fmark" src="https://user.uploads.dev/file/d3fafab83015367c8e11dd9ec7d31a41.png" alt="" width="22" height="22"> VISIDOCSVERSE — a living 3D document universe.</span>
+  <span class="fl"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></span>
+  <span>Checkout & licensing by Lemon Squeezy · Your files never leave your PC.</span>
+</div></footer>
+
+<script>
+(function(){
+  // Scroll reveal
+  try{var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target);}});},{threshold:.12});
+    document.querySelectorAll('.rv').forEach(function(el){o.observe(el);});}
+  catch(e){document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in');});}
+  // Animated counters
+  var counted=false;
+  function counters(){if(counted)return;counted=true;
+    document.querySelectorAll('[data-n]').forEach(function(el){var n=+el.dataset.n,t0=performance.now();
+      (function f(t){var p=Math.min(1,(t-t0)/1100);el.textContent=Math.round(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f);})(t0);});}
+  try{var o2=new IntersectionObserver(function(e){if(e[0].isIntersecting){counters();o2.disconnect();}});o2.observe(document.querySelector('.stats'));}catch(e){counters();}
+  // Sealed-preview-safe anchor scrolling: sandboxed iframes (sandbox="allow-scripts",
+  // no allow-same-origin) silently swallow native fragment navigation, so drive
+  // every in-page link with scrollIntoView instead. Same result on the live site.
+  document.addEventListener('click',function(e){
+    var a=e.target&&e.target.closest?e.target.closest('a[href^="#"]'):null;
+    if(!a)return;
+    var id=a.getAttribute('href');
+    if(!id||id.length<2)return;
+    var t=document.getElementById(id.slice(1));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+  // Sealed-preview page routing: inside an about:srcdoc sandbox, relative page
+  // navigations fail ("Cannot GET" — the preview server only answers fetch(),
+  // never frame navigation), and the opaque frame cannot fetch src/ files
+  // itself either. So it asks the opener (postMessage relay, allowlisted
+  // files only) and renders the returned HTML in place.
+  // On the live site (real URL) this does nothing and native navigation wins.
+  (function(){
+    if(String(window.location.href).indexOf('about:srcdoc')!==0)return;
+    var pendingHash='';
+    window.addEventListener('message',function(e){
+      var d=e&&e.data;
+      if(!d||typeof d!=='object'||!d.webSandboxPage)return;
+      if(d.error||typeof d.html!=='string'){
+        document.open();
+        document.write('<body style="margin:0;background:#0d1117;color:#dbe4f5;font:14px/1.6 system-ui,sans-serif;padding:40px"><h2 style="color:#ffce6b">Page not reachable yet</h2><p>Reload the preview page once, then reopen the sandbox.</p></body>');
+        document.close();
+        return;
+      }
+      var html=d.html;
+      document.open();document.write(html);document.close();
+      // Scroll after render: document now refers to the freshly written page.
+      var hid=pendingHash;pendingHash='';
+      if(hid)setTimeout(function(){var t=document.getElementById(hid);if(t)t.scrollIntoView();},60);
+    });
+    document.addEventListener('click',function(e){
+      var a=e.target&&e.target.closest?e.target.closest('a[href]'):null;
+      if(!a||a.target==='_blank')return;
+      var m=/^((?:index|privacy|terms|moment-[a-z]+)\.html)(#.*)?$/.exec(a.getAttribute('href')||'');
+      if(!m)return;
+      e.preventDefault();
+      pendingHash=m[2]?m[2].slice(1):'';
+      try{parent.postMessage({webSandboxLoad:m[1]},'*');}catch(err){}
+    });
+  })();
+  // Views switcher
+  var svg=document.getElementById('orbitSvg');
+  function draw(mode){
+    var s='';
+    function orb(x,y,r,c,lbl){s+='<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="none" stroke="rgba(125,180,255,.25)"/>';}
+    function node(x,y,r,f,lbl){s+='<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+f+'"/>';if(lbl)s+='<text x="'+(x+10)+'" y="'+(y+4)+'" font-size="11" fill="#9aa7c2">'+lbl+'</text>';}
+    function link(x1,y1,x2,y2,c){s+='<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+(c||'rgba(255,206,107,.55)')+'" stroke-width="1.4"/>';}
+    if(mode==='main'){orb(200,130,60);orb(200,130,105);link(200,130,250,95);link(200,130,155,160);link(200,130,230,180);
+      node(200,130,14,'#ffce6b','sun — your doc');node(250,95,8,'#7db4ff','shares 3 tags');node(155,160,7,'#7db4ff','cites it');node(230,180,6,'#7db4ff','same theme');node(120,80,5,'#3a4a6b','outlier');}
+    else if(mode==='the'){orb(200,130,70);orb(200,130,110);link(200,130,258,100);link(200,130,150,170);link(258,100,285,160,'rgba(125,180,255,.4)');
+      node(200,130,10,'#7db4ff','anchor idea');node(258,100,13,'#ffce6b','self-efficacy · alignment');node(150,170,9,'#c4a8ff','methods');node(285,160,6,'#7db4ff','member doc');}
+    else{orb(200,130,65);orb(200,130,105);link(200,130,245,90);link(200,130,160,165);link(245,90,290,150,'rgba(126,240,212,.45)');
+      node(200,130,10,'#7db4ff','#methods');node(245,90,12,'#ffce6b','#fieldwork');node(160,165,8,'#7ef0d4','#archive');node(290,150,6,'#7db4ff','shared doc');}
+    svg.innerHTML=s;
+  }
+  draw('main');
+  var T={main:['Main: every document as itself','Each file is a body sized by its mass. Shared tags and references become glowing tethers, so related work clusters on its own and loners drift to the rim where they belong.'],
+    the:['Thematic: ideas become bodies','One click distills the corpus into theme bodies — concepts your files genuinely share, webbed by the documents grounding them. Click a theme, meet its members, drill into any one.'],
+    tags:['Tags: your labels, mapped','Every #tag becomes a body, webbed wherever two labels share documents. Drag one pill onto another to merge, rename everywhere at once — the map rewires itself.']};
+  var L={main:['Click any body → it glides home as the sun','Gold halo = what you\u2019re reading; gold lines = its shared ground','Box-select, copy between canvases, quantum twins stay in lockstep'],
+    the:['Boilerplate words are filtered — only earned ideas appear','Every theme has ≥1 tether: nothing drifts off','Members drill down into the Main view as the new sun'],
+    tags:['Prefix-blind matching: auto/fieldwork ≡ #fieldwork','Wallpaper guard: corpus-wide filler tags pull nothing','Delete / merge / rename from the ALL TAGS card']};
+  // Views switcher: real tabs (arrow-key navigation included)
+  var tabs=Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  function selectTab(i){var b=tabs[i];
+    tabs.forEach(function(x){x.classList.remove('on');x.setAttribute('aria-selected','false');x.setAttribute('tabindex','-1');});
+    b.classList.add('on');b.setAttribute('aria-selected','true');b.setAttribute('tabindex','0');
+    var k=b.dataset.v;draw(k);document.getElementById('viewTitle').textContent=T[k][0];document.getElementById('viewDesc').textContent=T[k][1];
+    document.getElementById('viewList').innerHTML=L[k].map(function(x){return '<li>'+x+'</li>';}).join('');}
+  tabs.forEach(function(b,i){
+    b.setAttribute('role','tab');b.setAttribute('aria-selected',b.classList.contains('on')?'true':'false');b.setAttribute('tabindex',b.classList.contains('on')?'0':'-1');
+    b.addEventListener('click',function(){selectTab(i);});
+    b.addEventListener('keydown',function(ev){if(ev.key!=='ArrowRight'&&ev.key!=='ArrowLeft')return;ev.preventDefault();var j=(i+(ev.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;selectTab(j);tabs[j].focus();});});
+  // Lazy-load below-fold videos: hold src until near the viewport so the
+  // page stays light; hero video above the fold keeps loading eagerly.
+  try{
+    document.querySelectorAll('.motion video, .card video.ph').forEach(function(v){
+      var s=v.getAttribute('src');if(!s||v.hasAttribute('data-src'))return;
+      v.setAttribute('data-src',s);v.removeAttribute('src');v.setAttribute('preload','none');});
+    var vio=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var v=e.target;vio.unobserve(v);
+      var s=v.getAttribute('data-src');if(!s||v.getAttribute('src'))return;v.setAttribute('src',s);
+      try{v.load();var p=v.play();if(p&&p.catch)p.catch(function(){});}catch(err){}});},{rootMargin:'400px'});
+    document.querySelectorAll('video[data-src]').forEach(function(v){vio.observe(v);});
+  }catch(e){}
+  // Pocket-universe demo: real spring physics on a 12-document sample corpus.
+  (function(){
+    var cv=document.getElementById('demoCv');if(!cv)return;
+    var stage=cv.parentElement,ctx=cv.getContext('2d');
+    var DOCS=[
+      {t:'Monsoon Markets — thesis draft',x:'The central argument: monsoon winds scheduled empire. Whoever read the weather taxed the trade.',tags:['trade','climate','method'],m:12},
+      {t:'Portuguese Estado shipping logs',x:'Departure dates cluster two weeks after the southwest monsoon breaks — every year, on schedule.',tags:['trade','maps'],m:9},
+      {t:'Gujarati merchant letters',x:'“Send pepper before the winds turn, or send nothing at all.” Credit followed the clouds.',tags:['trade','archive'],m:8},
+      {t:'Coral bleaching field notes',x:'The reef keeps its own ledger of hot years. Cross-checked against the customs receipts.',tags:['climate','method'],m:6},
+      {t:'1840 cyclone damage survey',x:'One storm erased three warehouses. Insurance rates doubled from Calicut to Zanzibar.',tags:['climate','archive'],m:7},
+      {t:'Portolan chart, western ocean',x:'Rhumb lines drawn for winds the cartographer never felt. The map is a weather report.',tags:['maps','trade'],m:8},
+      {t:'Kilwa customs receipts',x:'Duties paid in gold, pepper and promises. The sultans taxed the monsoon itself.',tags:['trade','archive'],m:7},
+      {t:'Monsoon onset statistics 1901–1950',x:'Fifty years of first rains, tabulated. The thesis argument, in numbers.',tags:['climate','method'],m:9},
+      {t:'Swahili coast oral histories',x:'The elders date events by storms, not sultans. The archive disagrees — both are right.',tags:['archive','climate'],m:6},
+      {t:'Dutch factory records, Surat',x:'Factor Van Reede complains the winds came early and the pepper late. Again.',tags:['trade','maps'],m:7},
+      {t:'Tide tables & pilot guides',x:'How to arrive alive: currents, reefs, and the month the sea changes its mind.',tags:['maps','method'],m:5},
+      {t:'Chapter 4 — conclusions',x:'Empires did not conquer the monsoon; they scheduled themselves around it.',tags:['method','trade','climate'],m:10}
+    ];
+    var N=DOCS.length,nodes=[],edges=[],W=600,H=440,focus=-1,hover=-1;
+    for(var i=0;i<N;i++){var a=i/N*Math.PI*2;nodes.push({x:W/2+Math.cos(a)*150,y:H/2+Math.sin(a)*120,vx:0,vy:0,r:5+DOCS[i].m*0.55});}
+    for(var i=0;i<N;i++)for(var j=i+1;j<N;j++){var sh=DOCS[i].tags.filter(function(t){return DOCS[j].tags.indexOf(t)>-1;});if(sh.length)edges.push({a:i,b:j,w:sh.length});}
+    function neighbors(i){var o=[];edges.forEach(function(e){if(e.a===i)o.push(e.b);else if(e.b===i)o.push(e.a);});return o;}
+    var titleEl=document.getElementById('demoTitle'),tagsEl=document.getElementById('demoTags'),exEl=document.getElementById('demoExcerpt'),linksEl=document.getElementById('demoLinks'),hintEl=document.getElementById('demoHint');
+    function show(i){focus=i;var d=DOCS[i],nb=neighbors(i);
+      titleEl.textContent=d.t;
+      tagsEl.innerHTML=d.tags.map(function(t){return '<span>#'+t+'</span>';}).join('');
+      exEl.textContent='“'+d.x+'”';
+      linksEl.innerHTML=nb.length?('Tethered to '+nb.length+': '+nb.map(function(j){return '<a href="#" data-j="'+j+'">'+DOCS[j].t+'</a>';}).join(' · ')):'';
+      if(hintEl)hintEl.style.display='none';}
+    function clearAll(){focus=-1;titleEl.textContent='12 documents in orbit';tagsEl.innerHTML='';exEl.textContent='Pick any glowing body to dock the reader on it — its tethers light up gold and everything it connects to is one click away.';linksEl.innerHTML='';}
+    linksEl.addEventListener('click',function(e){var a=e.target&&e.target.closest?e.target.closest('a[data-j]'):null;if(!a)return;e.preventDefault();show(+a.getAttribute('data-j'));});
+    document.getElementById('demoReset').addEventListener('click',clearAll);
+    function pick(e,rad){var r=cv.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top,best=-1,bd=rad*rad;
+      nodes.forEach(function(n,i){var dx=n.x-px,dy=n.y-py,d=dx*dx+dy*dy;if(d<bd){bd=d;best=i;}});return best;}
+    cv.addEventListener('mousemove',function(e){hover=pick(e,26);cv.style.cursor=hover>-1?'pointer':'default';});
+    cv.addEventListener('click',function(e){var b=pick(e,30);if(b>-1)show(b);});
+    cv.addEventListener('mouseleave',function(){hover=-1;});
+    function resize(){var dpr=Math.min(2,window.devicePixelRatio||1);W=Math.max(280,stage.clientWidth);H=Math.max(380,Math.min(480,Math.round(stage.clientWidth*0.62)));cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);}
+    function draw(){ctx.clearRect(0,0,W,H);var cx=W/2,cy=H/2;
+      edges.forEach(function(e){var hot=(e.a===focus||e.b===focus);ctx.strokeStyle=hot?'rgba(255,206,107,.8)':'rgba(125,180,255,.18)';ctx.lineWidth=hot?1.8:1;ctx.beginPath();ctx.moveTo(nodes[e.a].x,nodes[e.a].y);ctx.lineTo(nodes[e.b].x,nodes[e.b].y);ctx.stroke();});
+      nodes.forEach(function(n,i2){var sun=(i2===focus),hov=(i2===hover);
+        if(sun){var g=ctx.createRadialGradient(n.x,n.y,2,n.x,n.y,n.r+14);g.addColorStop(0,'rgba(255,206,107,.85)');g.addColorStop(1,'rgba(255,206,107,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(n.x,n.y,n.r+14,0,7);ctx.fill();}
+        ctx.fillStyle=sun?'#ffce6b':(hov?'#cfe0ff':'#7db4ff');ctx.beginPath();ctx.arc(n.x,n.y,sun?n.r+3:n.r,0,7);ctx.fill();
+        if(sun||hov){ctx.fillStyle='#e8eefc';ctx.font='12px Inter,system-ui,sans-serif';ctx.fillText(DOCS[i2].t,n.x+n.r+8,n.y+4);}});}
+    function step(){var cx=W/2,cy=H/2,i,j;
+      for(i=0;i<N;i++)for(j=i+1;j<N;j++){var a=nodes[i],b=nodes[j],dx=b.x-a.x,dy=b.y-a.y,d2=dx*dx+dy*dy+40,d=Math.sqrt(d2),f=Math.min(900/d2,2),ux=dx/d,uy=dy/d;a.vx-=ux*f;a.vy-=uy*f;b.vx+=ux*f;b.vy+=uy*f;}
+      edges.forEach(function(e){var a=nodes[e.a],b=nodes[e.b],dx=b.x-a.x,dy=b.y-a.y,d=Math.sqrt(dx*dx+dy*dy)+0.01,rest=e.w>1?95:110,f=(d-rest)*0.006*e.w,ux=dx/d,uy=dy/d;a.vx+=ux*f;a.vy+=uy*f;b.vx-=ux*f;b.vy-=uy*f;});
+      nodes.forEach(function(n,k){n.vx+=(cx-n.x)*0.0016;n.vy+=(cy-n.y)*0.0016;n.vx*=0.92;n.vy*=0.92;if(k===focus){n.x+=(cx-n.x)*0.12;n.y+=(cy-n.y)*0.12;n.vx*=0.5;n.vy*=0.5;}n.x+=n.vx;n.y+=n.vy;});
+      draw();requestAnimationFrame(step);}
+    window.addEventListener('resize',resize);resize();
+    if('IntersectionObserver' in window){var run=false;new IntersectionObserver(function(es,ob){if(es[0].isIntersecting&&!run){run=true;ob.disconnect();requestAnimationFrame(step);}}).observe(stage);}else requestAnimationFrame(step);
+  })();
+})();
+</script>
+</body>
+</html>
