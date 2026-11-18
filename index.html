@@ -178,6 +178,28 @@ h2{font-size:clamp(28px,3.6vw,42px);line-height:1.12;margin:12px 0 12px;letter-s
 .faq figure{margin:12px 0 4px}
 .faq figure img{max-width:100%;height:auto;border-radius:10px;border:1px solid rgba(255,255,255,.12);display:block}
 .faq figcaption{font-size:12.5px;color:var(--mut);margin-top:6px}
+/* INSTALL — original walkthrough in site style (not a Windows screenshot) */
+.install-walk{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:22px;margin-top:16px}
+.mock-duo{display:grid;grid-template-columns:1fr 36px 1fr;gap:12px;align-items:stretch;margin-top:14px}
+.mock-arrow{align-self:center;text-align:center;color:var(--gold);font-size:22px;line-height:1}
+.mock{background:linear-gradient(180deg,#172032,#0c1322);border:1px solid rgba(255,255,255,.12);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.mock-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.08);color:var(--dim);font-size:12.5px}
+.mock-bar .dots{display:flex;gap:6px}
+.mock-bar .dots i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.18);display:block}
+.mock-body{display:flex;gap:14px;padding:18px}
+.mock-ic{flex:0 0 40px;width:40px;height:40px;border-radius:11px;display:grid;place-items:center;font-size:20px;background:rgba(255,206,107,.14);border:1px solid rgba(255,206,107,.45)}
+.mock-body h4{margin:2px 0 8px;font-size:16px}
+.mock-body p{margin:0 0 8px;color:var(--mut);font-size:13.5px;line-height:1.6}
+.mock-meta{font-size:13px;color:var(--mut);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:10px 12px;margin:10px 0 0}
+.mock-meta b{color:var(--ink)}
+.mock-actions{display:flex;gap:10px;justify-content:flex-end;align-items:center;margin-top:14px;flex-wrap:wrap}
+.mock-link{color:var(--gold);font-weight:700;font-size:13.5px;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.mock-btn{border-radius:10px;padding:9px 16px;font-weight:700;font-size:13.5px;border:1px solid transparent;cursor:default}
+.mock-btn.run{background:linear-gradient(180deg,#ffdf9a,#f5b83f);color:#241a05;border-color:rgba(112,72,6,.9)}
+.mock-btn.dont{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);color:var(--ink)}
+.mock-tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.14em;color:var(--gold);border:1px solid var(--line);border-radius:999px;padding:4px 10px;margin-bottom:10px;background:rgba(255,206,107,.08)}
+.mock-arrow{text-align:center;color:var(--gold);font-size:20px;margin:8px 0;line-height:1}
+@media(max-width:900px){.mock-duo{grid-template-columns:1fr}.mock-arrow{transform:rotate(90deg)}}
 /* FINAL */
 .final{background:linear-gradient(180deg,#141c31,#0a0e16);border:1px solid rgba(255,206,107,.3);border-radius:22px;padding:46px 30px;text-align:center;margin-top:10px}
 /* CONTACT FORM (posts to web3forms once the access key is set below) */
@@ -214,7 +236,7 @@ footer .fl a:hover{color:var(--ink)}
 <nav class="nav"><div class="wrap nav-in">
   <a class="brand" href="#top"><img class="mk" src="https://user.uploads.dev/file/b93761de2d015e095c3c609bbd6d32b6.png" alt="VisiDocsverse logo" width="30" height="30"> VISIDOCSVERSE</a>
   <div class="nav-links">
-    <a href="#features">Features</a><a href="#motion">How it works</a><a href="#views">Views</a><a href="#offline">Offline</a><a href="#notai">Not AI</a><a href="#handoff">Handoff</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+    <a href="#features">Features</a><a href="#motion">How it works</a><a href="#views">Views</a><a href="#offline">Offline</a><a href="#notai">Not AI</a><a href="#handoff">Handoff</a><a href="#pricing">Pricing</a><a href="#install">How to install</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
   </div>
   <div class="nav-cta">
     <a class="btn btn-gold btn-sm" href="https://dodo.pe/visidocsverse" target="_blank" rel="noopener">Get VisiDocsverse</a>
@@ -458,6 +480,58 @@ Most similar in your workspace:
   </div>
 </div></section>
 
+<section class="block" id="install" style="background:rgba(255,255,255,.015);border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)"><div class="wrap">
+  <div class="eyebrow rv">First run · about two minutes</div>
+  <h2 class="rv">How to install.</h2>
+  <p class="sub rv">Same three steps as the FAQ, with pictures of the one Windows prompt that trips everyone up. That warning is normal for new independent software — two clicks past it and you're in.</p>
+  <div class="steps rv">
+    <div class="step"><div class="n">1</div><h3>Download the installer</h3><p>Your Dodo Payments receipt email holds your download — open it and grab the installer for your Windows 10/11 PC.</p></div>
+    <div class="step"><div class="n">2</div><h3>Run it past the warning</h3><p>Windows will likely flag it as unrecognized — click <b>Show details / More info</b>, then <b>Run anyway</b>. See the walkthrough below.</p></div>
+    <div class="step"><div class="n">3</div><h3>Paste your key</h3><p>When the app first opens, paste the key from that same email and click <b>Activate</b> (online this once).</p></div>
+  </div>
+  <div class="install-walk rv">
+    <span class="mock-tag">THE ONE TRICKY PART · 2 CLICKS</span>
+    <div class="mock-duo">
+      <div class="mock">
+        <div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span><span>VisiDocsVerse-Setup.exe · system prompt (illustrated)</span></div>
+        <div class="mock-body">
+          <div class="mock-ic">🛡️</div>
+          <div style="flex:1;min-width:0">
+            <span class="mock-tag">FIRST · WHAT YOU'LL SEE</span>
+            <h4>Your PC flags an unrecognized app</h4>
+            <p>The system holds the installer back because its publisher isn't on file yet. Normal for new independent apps.</p>
+            <div class="mock-actions" style="justify-content:flex-start">
+              <span class="mock-link">Show details ▾</span>
+              <span style="color:var(--dim);font-size:12.5px">(= “More info” on Windows)</span>
+            </div>
+            <div class="mock-actions">
+              <span class="mock-btn dont">Don't run</span>
+            </div>
+            <p class="micro" style="margin:10px 0 0">👆 Click <b style="color:var(--ink)">Show details / More info</b> first — the Run option appears after.</p>
+          </div>
+        </div>
+      </div>
+      <div class="mock-arrow">→</div>
+      <div class="mock">
+        <div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span><span>Details expanded (illustrated)</span></div>
+        <div class="mock-body">
+          <div class="mock-ic">📦</div>
+          <div style="flex:1;min-width:0">
+            <span class="mock-tag">THEN · CLICK RUN</span>
+            <div class="mock-meta"><b>App:</b> VisiDocsVerse-Setup.exe<br><b>Publisher:</b> Unknown publisher</div>
+            <p style="margin-top:10px">Same dialog, expanded. “Unknown publisher” just means no big-company certificate yet — expected for a small indie release.</p>
+            <div class="mock-actions">
+              <span class="mock-btn run">Run anyway</span>
+              <span class="mock-btn dont">Don't run</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="micro" style="margin:12px 2px 0">Simplified illustration drawn in VisiDocsverse style — not a Windows screenshot. Wording may differ slightly by Windows version. Lost your email? The update banner's <b>Copy receipt search</b> button finds it in seconds. Full detail in the <a href="#faq" style="color:var(--gold)">FAQ</a>.</p>
+  </div>
+</div></section>
+
 <section class="block" id="faq"><div class="wrap">
   <div class="eyebrow rv">Questions, answered</div>
   <h2 class="rv">FAQ</h2>
@@ -469,7 +543,7 @@ Most similar in your workspace:
     <details><summary>How is this different from Obsidian / Notion / Zotero?</summary><p>Those are brilliant filing cabinets. VisiDocsverse is an observatory: instead of lists of names, you get a live map of how your documents relate — ideas as bodies (Thematic), labels as bodies (Tags), plus drag-to-merge tags, passage-pinned notes, and multi-canvas project universes.</p></details>
     <details><summary>Can it manage my references or build my bibliography?</summary><p>Only a little, and honestly — that's not its job. Where a document carries usable info (a PDF's title, authors, or year), VisiDocsverse will offer a basic APA-style reference you can copy, just as a small courtesy. But it isn't referencing software: no citation library, no cite-while-you-write, no bibliography builder. Think of it as the place you <em>understand</em> your documents — a visual universe for reading and connecting ideas — happily sitting alongside whatever reference manager you already love.</p></details>
     <details><summary>What do I get when I subscribe?</summary><p>A license key emailed instantly by Dodo Payments. Paste it into the app once to activate — it stays valid while your $4/month subscription (billed $24 twice a year) is active. Every version-1 update is free and arrives with an in-app banner; your existing library and notes are never touched by updates, and your vault files stay readable on your machine, always. Cancel anytime.</p></details>
-    <details><summary>How do I install it the first time?</summary><p>Three steps, about two minutes:</p><ol><li><b>Download the installer.</b> Your Dodo Payments receipt email holds your download — open it and grab the installer for your Windows 10/11 PC.</li><li><b>Run it.</b> If Windows or your antivirus tries to block the install — no worries — on the warning dialog click <b>More info</b>, then <b>Run anyway</b>.</li><li><b>Paste your key.</b> When the app first opens, the license window appears — paste in the key from that same email and click <b>Activate</b> (it needs the internet this once). From then on the app just does a silent weekly license check, with 7 days of offline grace whenever you're away from a connection.</li></ol></details>
+    <details><summary>How do I install it the first time?</summary><p>Three steps, about two minutes:</p><ol><li><b>Download the installer.</b> Your Dodo Payments receipt email holds your download — open it and grab the installer for your Windows 10/11 PC.</li><li><b>Run it.</b> If Windows or your antivirus tries to block the install — no worries — on the warning dialog click <b>More info</b>, then <b>Run anyway</b>.</li><li><b>Paste your key.</b> When the app first opens, the license window appears — paste in the key from that same email and click <b>Activate</b> (it needs the internet this once).</li></ol></details>
     <details><summary>How are updates installed?</summary><p>Nothing updates itself behind your back. When a new version is released, a small banner appears inside the app, just below the top pill — showing the new version number, the version you have, the release date, and what changed. From there, the whole process is three clicks:</p><ol><li><b>Read the banner.</b> It tells you exactly what's new before you decide anything — e.g. “1.0.22 is available (you have 1.0.21)” followed by the list of changes.</li><li><b>Click Download.</b> This opens your download page, where you grab the new installer and run it. If Windows or your antivirus tries to block the install — no worries — on the warning dialog click <b>More info</b>, then <b>Run anyway</b>. Your library, notes, tags and universes are never touched by updates — everything is exactly where you left it afterwards.</li><li><b>Not now? Click Later (or the ×).</b> The banner goes away and won't nag you about that version again. When the <em>next</em> version comes out, you'll get a fresh banner for that one.</li></ol><figure><img src="https://user.uploads.dev/file/0d6a9cacf743f074efc46769adf0adc1.png" alt="The VisiDocsverse update banner: version title, release date, list of changes, and Download, Copy receipt search and Later buttons" loading="lazy" width="868" height="424"><figcaption>What you'll see: the update banner with the new version, what's in it, and the three buttons.</figcaption></figure><figure><img src="https://user.uploads.dev/file/872616d3ec2e8bf690e4e74c356173b2.png" alt="The update banner sitting just below the top pill inside the VisiDocsverse app" loading="lazy" width="1280" height="618"><figcaption>Where it appears: tucked just under the top pill, out of the way of your universe.</figcaption></figure><p><b>Lost your download link?</b> Click <b>Copy receipt search</b> in the banner — it copies a search phrase that finds your original Dodo Payments receipt email in seconds, and that email always holds your free re-download. Updates are included while you're subscribed, and nothing ever installs without you clicking Download.</p></details>
     <details><summary>What if I have hundreds of files?</summary><p>That's the point. Box-select, fit-to-screen, distribute-into-orb map mode, per-canvas universes, and the verse-map minimap keep big collections navigable. Mass-ranked seating means the heavyweights anchor the center automatically.</p></details>
     <details><summary>Which computers does it run on?</summary><p>VisiDocsverse is a Windows app (Windows 10 and 11). Mac and Linux versions are coming soon — same universe, same offline-first promise. If you're on a Mac or Linux machine and want to be told the moment your version lands, send us a message below and we'll put you on the list.</p></details>
