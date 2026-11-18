@@ -171,6 +171,13 @@ h2{font-size:clamp(28px,3.6vw,42px);line-height:1.12;margin:12px 0 12px;letter-s
 .faq details{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px}
 .faq summary{cursor:pointer;font-weight:700}
 .faq p{color:var(--mut);line-height:1.65;margin:10px 0 0;font-size:14.5px}
+/* FAQ update-guide: numbered steps + banner screenshots */
+.faq ol{color:var(--mut);line-height:1.65;margin:10px 0 0;padding-left:22px;font-size:14.5px}
+.faq ol li{margin:6px 0}
+.faq ol b,.faq p b{color:var(--ink)}
+.faq figure{margin:12px 0 4px}
+.faq figure img{max-width:100%;height:auto;border-radius:10px;border:1px solid rgba(255,255,255,.12);display:block}
+.faq figcaption{font-size:12.5px;color:var(--mut);margin-top:6px}
 /* FINAL */
 .final{background:linear-gradient(180deg,#141c31,#0a0e16);border:1px solid rgba(255,206,107,.3);border-radius:22px;padding:46px 30px;text-align:center;margin-top:10px}
 /* CONTACT FORM (posts to web3forms once the access key is set below) */
@@ -201,107 +208,7 @@ footer .fl{display:flex;gap:18px;align-items:center}
 footer .fl a{color:var(--mut);font-size:13px;text-underline-offset:3px}
 footer .fl a:hover{color:var(--ink)}
 </style>
-<!-- Lemon Squeezy Core SDK & Affiliate Tracking -->
-<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
-<script>
-  window.createLemonSqueezy = function () {
-    if (window.LemonSqueezy) {
-      // Setup LemonSqueezy listeners & affiliate cookie capture
-      window.LemonSqueezy.Setup({
-        eventHandler: (event) => {
-          try {
-            if (event === "mounted") window.__lsMountedAt = Date.now();
-            else if (event === "close") window.__lsOverlayOpen = false;
-          } catch (e) {}
-          console.log("Lemon Squeezy Event:", event);
-        }
-      });
-    }
-  };
 
-  // Affiliate capture: ?aff=CODE (or ?aff_ref=CODE) on a landing URL ->
-  // persisted ls_aff_ref cookie + localStorage backup, then forwarded into
-  // hosted checkout links (the SDK only appends aff_ref for overlay
-  // '.lemonsqueezy-button' checkouts, so plain links are stamped here).
-  (function () {
-    function getParam(n) { try { return new URLSearchParams(window.location.search).get(n); } catch (e) { return null; } }
-    function readCookie(n) { try { var p = document.cookie.split(";"); for (var i = 0; i < p.length; i++) { var c = p[i].replace(/^\s+/, ""); if (c.indexOf(n + "=") === 0) return decodeURIComponent(c.slice(n.length + 1)); } } catch (e) {} return null; }
-    function storedRef() { return readCookie("ls_aff_ref") || (function () { try { return localStorage.getItem("ls_aff_ref"); } catch (e) { return null; } })(); }
-    var code = getParam("aff") || getParam("aff_ref");
-    if (code) { try { document.cookie = "ls_aff_ref=" + encodeURIComponent(code) + "; max-age=31536000; path=/; SameSite=Lax"; localStorage.setItem("ls_aff_ref", code); } catch (e) {} }
-    function stamp() {
-      var ref = storedRef();
-      if (!ref) return;
-      document.querySelectorAll('a[href*="lemonsqueezy.com/checkout"]').forEach(function (a) {
-        try { var u = new URL(a.href); if (!u.searchParams.get("aff_ref")) { u.searchParams.set("aff_ref", ref); a.href = u.toString(); } } catch (e) {}
-      });
-    }
-    document.addEventListener("DOMContentLoaded", stamp);
-    window.addEventListener("load", stamp);
-    var sealedPreview = String(window.location.href).indexOf("about:srcdoc") === 0;
-    function lsToast(msg) {
-      try {
-        var d = document.createElement("div");
-        d.textContent = msg;
-        d.setAttribute("style", "position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:2147483647;background:rgba(10,14,22,.94);color:#ffe9bd;border:1px solid rgba(255,206,107,.55);border-radius:12px;padding:12px 18px;font:14px/1.5 system-ui,sans-serif;max-width:min(520px,90vw);text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.5)");
-        document.body.appendChild(d);
-        setTimeout(function () { try { d.remove(); } catch (e) {} }, 4200);
-      } catch (e) {}
-    }
-    if (sealedPreview) {
-      // Sealed editor previews sandbox the page (no forms/same-origin/popups),
-      // so the payment overlay can never boot there — it would stick on its
-      // loading veil forever. Disable overlay binding before the SDK\u2019s
-      // load-time hookup and say so on click instead of breaking the page.
-      document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll("a.lemonsqueezy-button").forEach(function (a) {
-          a.classList.remove("lemonsqueezy-button");
-          a.addEventListener("click", function (ev) {
-            ev.preventDefault();
-            lsToast("Checkout opens on the live site — this sealed preview cannot load payment pages.");
-          });
-        });
-      });
-    } else {
-      // Stuck-veil fallback for real browsers: if the overlay opened but the
-      // checkout never reports "mounted" (blocked third-party cookies, broken
-      // embed, stalled network), close it and fall back to a plain new tab
-      // instead of leaving the buyer staring at the loading veil.
-      document.addEventListener("click", function (e) {
-        var a = e.target && e.target.closest ? e.target.closest("a.lemonsqueezy-button") : null;
-        if (!a || !a.href) return;
-        var href = a.href;
-        window.__lsOverlayOpen = true;
-        window.__lsMountedAt = 0;
-        var wait = (typeof window.__lsOverlayTimeoutMs === "number") ? window.__lsOverlayTimeoutMs : 15000;
-        setTimeout(function () {
-          if (!window.__lsOverlayOpen || window.__lsMountedAt) return;
-          if (!document.body || !document.body.classList.contains("lemonsqueezy-open")) { window.__lsOverlayOpen = false; return; }
-          try { if (window.LemonSqueezy && window.LemonSqueezy.Url) window.LemonSqueezy.Url.Close(); } catch (err) {}
-          window.__lsOverlayOpen = false;
-          try { window.open(href, "_blank", "noopener"); } catch (err) { try { window.location.href = href; } catch (e2) {} }
-        }, wait + 700);
-      });
-    }
-  })();
-
-  // Run setup once the SDK is ready. lemon.js creates window.LemonSqueezy on
-  // window load (after DOMContentLoaded), and never fires lemonSqueezyLoaded,
-  // so poll as a fallback to guarantee Setup() always runs.
-  (function () {
-    var tries = 0;
-    function ready() {
-      if (window.LemonSqueezy && window.LemonSqueezy.Setup) { window.createLemonSqueezy(); return; }
-      if (++tries < 100) setTimeout(ready, 100);
-    }
-    function onReady() {
-      if (window.LemonSqueezy && window.LemonSqueezy.Setup) window.createLemonSqueezy();
-      else { window.addEventListener("lemonSqueezyLoaded", window.createLemonSqueezy); ready(); }
-    }
-    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", onReady);
-    else onReady();
-  })();
-</script>
 </head>
 <body>
 <nav class="nav"><div class="wrap nav-in">
@@ -310,7 +217,7 @@ footer .fl a:hover{color:var(--ink)}
     <a href="#features">Features</a><a href="#motion">How it works</a><a href="#views">Views</a><a href="#offline">Offline</a><a href="#notai">Not AI</a><a href="#handoff">Handoff</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
   </div>
   <div class="nav-cta">
-    <a class="lemonsqueezy-button btn btn-gold btn-sm" href="https://paymentprocessor.lemonsqueezy.com/checkout/buy/497cede5-0dda-4ae4-8e20-36e18dfbc42b" target="_blank" rel="noopener">Get VisiDocsverse</a>
+    <a class="btn btn-gold btn-sm" href="https://dodo.pe/visidocsverse" target="_blank" rel="noopener">Get VisiDocsverse</a>
   </div>
 </div></nav>
 
@@ -320,7 +227,7 @@ footer .fl a:hover{color:var(--ink)}
     <h1>Your documents,<br>as a <span class="gold">living universe.</span></h1>
     <p class="lede">Drop in PDFs, Word files, spreadsheets, slides, notes, even photos of text. VisiDocsverse hangs every document in 3D space — <b style="color:var(--ink)">related ideas pull together with real gravity</b>, and whatever you're reading sits at the center while everything it connects to orbits around it. Stop hunting through folders. <b style="color:var(--ink)">Navigate by meaning.</b></p>
     <div class="cta-row">
-      <a class="lemonsqueezy-button btn btn-gold" href="https://paymentprocessor.lemonsqueezy.com/checkout/buy/497cede5-0dda-4ae4-8e20-36e18dfbc42b" target="_blank" rel="noopener">Get VisiDocsverse →</a>
+      <a class="btn btn-gold" href="https://dodo.pe/visidocsverse" target="_blank" rel="noopener">Get VisiDocsverse →</a>
       <a class="btn btn-ghost" href="#motion">▶ &nbsp;See how it works</a>
     </div>
     <div class="trust">
@@ -426,7 +333,7 @@ footer .fl a:hover{color:var(--ink)}
       <div class="eyebrow">Private by architecture</div>
       <h2>Your files never<br>leave your machine.</h2>
       <p class="sub">No cloud to breach, no upload queue, no “AI training on your thesis.” The vault lives in your PC, every format engine is vendored inside the app, and OCR runs locally. Unplug the internet — everything still works.</p>
-      <div class="cta-row" style="margin-top:22px"><a class="lemonsqueezy-button btn btn-gold" href="https://paymentprocessor.lemonsqueezy.com/checkout/buy/497cede5-0dda-4ae4-8e20-36e18dfbc42b" target="_blank" rel="noopener">Get VisiDocsverse →</a></div>
+      <div class="cta-row" style="margin-top:22px"><a class="btn btn-gold" href="https://dodo.pe/visidocsverse" target="_blank" rel="noopener">Get VisiDocsverse →</a></div>
     </div>
     <div class="side-card rv"><h4>🔒 What “offline-first” actually means here</h4>
       <p>✓ All parsing (PDF, Word, Excel, PowerPoint, OCR) runs inside the app — zero network calls for your content.</p>
@@ -541,10 +448,10 @@ Most similar in your workspace:
         <li>Full app — all 3 universe views, reader, notes, OCR, canvases</li>
         <li>Reads PDF · Word · Excel · PowerPoint · MD · CSV · media · images</li>
         <li>Offline-first vault — your files stay on your PC</li>
-        <li>All updates included while subscribed</li>
-        <li>Use on your Windows machines with your key</li>
+        <li>All version-1 updates free while subscribed</li>
+        <li>One key covers up to 2 Windows machines</li>
       </ul>
-      <a class="lemonsqueezy-button btn btn-gold" style="width:100%" href="https://paymentprocessor.lemonsqueezy.com/checkout/buy/497cede5-0dda-4ae4-8e20-36e18dfbc42b" target="_blank" rel="noopener">Get VisiDocsverse →</a>
+      <a class="btn btn-gold" style="width:100%" href="https://dodo.pe/visidocsverse" target="_blank" rel="noopener">Get VisiDocsverse →</a>
       <p class="micro" style="text-align:center;margin:12px 0 0">Secure checkout · License key emailed instantly · Activate in-app · Cancel anytime</p>
     </div>
     <div class="side-card rv"><h4>❓ How does the subscription work?</h4><p>$4/month, charged as $24 every 6 months. Your key stays active while subscribed; the license check is a lightweight weekly ping with a full week of offline grace — and your vault files are always readable on your machine, whatever happens.</p><h4 style="margin-top:16px">🖥 Requirements</h4><p>Windows 10/11 (64-bit). No account, no cloud, no GPU needed — the universe is a tuned Canvas renderer that stays smooth on modest machines.</p></div>
@@ -561,22 +468,24 @@ Most similar in your workspace:
     <details><summary>Does VisiDocsverse use AI?</summary><p>No — deliberately. There is no chatbot, no summarizer, no generative model anywhere in the app. Mapping is deterministic: the same documents always produce the same universe, every link is shared ground you can open and verify, and the interpretation stays yours. That is the point — it is built for people who don't want to outsource their thinking. See <a href="#notai" style="color:var(--gold)">Not AI — on purpose</a>.</p></details>
     <details><summary>How is this different from Obsidian / Notion / Zotero?</summary><p>Those are brilliant filing cabinets. VisiDocsverse is an observatory: instead of lists of names, you get a live map of how your documents relate — ideas as bodies (Thematic), labels as bodies (Tags), plus drag-to-merge tags, passage-pinned notes, and multi-canvas project universes.</p></details>
     <details><summary>Can it manage my references or build my bibliography?</summary><p>Only a little, and honestly — that's not its job. Where a document carries usable info (a PDF's title, authors, or year), VisiDocsverse will offer a basic APA-style reference you can copy, just as a small courtesy. But it isn't referencing software: no citation library, no cite-while-you-write, no bibliography builder. Think of it as the place you <em>understand</em> your documents — a visual universe for reading and connecting ideas — happily sitting alongside whatever reference manager you already love.</p></details>
-    <details><summary>What do I get when I subscribe?</summary><p>A license key emailed instantly by Lemon Squeezy. Paste it into the app once to activate — it stays valid while your $4/month subscription (billed $24 twice a year) is active. Updates arrive with an in-app banner; your existing library and notes are never touched by updates, and your vault files stay readable on your machine, always. Cancel anytime.</p></details>
+    <details><summary>What do I get when I subscribe?</summary><p>A license key emailed instantly by Dodo Payments. Paste it into the app once to activate — it stays valid while your $4/month subscription (billed $24 twice a year) is active. Every version-1 update is free and arrives with an in-app banner; your existing library and notes are never touched by updates, and your vault files stay readable on your machine, always. Cancel anytime.</p></details>
+    <details><summary>How do I install it the first time?</summary><p>Three steps, about two minutes:</p><ol><li><b>Download the installer.</b> Your Dodo Payments receipt email holds your download — open it and grab the installer for your Windows 10/11 PC.</li><li><b>Run it.</b> If Windows or your antivirus tries to block the install — no worries — on the warning dialog click <b>More info</b>, then <b>Run anyway</b>.</li><li><b>Paste your key.</b> When the app first opens, the license window appears — paste in the key from that same email and click <b>Activate</b> (it needs the internet this once). From then on the app just does a silent weekly license check, with 7 days of offline grace whenever you're away from a connection.</li></ol></details>
+    <details><summary>How are updates installed?</summary><p>Nothing updates itself behind your back. When a new version is released, a small banner appears inside the app, just below the top pill — showing the new version number, the version you have, the release date, and what changed. From there, the whole process is three clicks:</p><ol><li><b>Read the banner.</b> It tells you exactly what's new before you decide anything — e.g. “1.0.22 is available (you have 1.0.21)” followed by the list of changes.</li><li><b>Click Download.</b> This opens your download page, where you grab the new installer and run it. If Windows or your antivirus tries to block the install — no worries — on the warning dialog click <b>More info</b>, then <b>Run anyway</b>. Your library, notes, tags and universes are never touched by updates — everything is exactly where you left it afterwards.</li><li><b>Not now? Click Later (or the ×).</b> The banner goes away and won't nag you about that version again. When the <em>next</em> version comes out, you'll get a fresh banner for that one.</li></ol><figure><img src="https://user.uploads.dev/file/0d6a9cacf743f074efc46769adf0adc1.png" alt="The VisiDocsverse update banner: version title, release date, list of changes, and Download, Copy receipt search and Later buttons" loading="lazy" width="868" height="424"><figcaption>What you'll see: the update banner with the new version, what's in it, and the three buttons.</figcaption></figure><figure><img src="https://user.uploads.dev/file/872616d3ec2e8bf690e4e74c356173b2.png" alt="The update banner sitting just below the top pill inside the VisiDocsverse app" loading="lazy" width="1280" height="618"><figcaption>Where it appears: tucked just under the top pill, out of the way of your universe.</figcaption></figure><p><b>Lost your download link?</b> Click <b>Copy receipt search</b> in the banner — it copies a search phrase that finds your original Dodo Payments receipt email in seconds, and that email always holds your free re-download. Updates are included while you're subscribed, and nothing ever installs without you clicking Download.</p></details>
     <details><summary>What if I have hundreds of files?</summary><p>That's the point. Box-select, fit-to-screen, distribute-into-orb map mode, per-canvas universes, and the verse-map minimap keep big collections navigable. Mass-ranked seating means the heavyweights anchor the center automatically.</p></details>
     <details><summary>Which computers does it run on?</summary><p>VisiDocsverse is a Windows app (Windows 10 and 11). Mac and Linux versions are coming soon — same universe, same offline-first promise. If you're on a Mac or Linux machine and want to be told the moment your version lands, send us a message below and we'll put you on the list.</p></details>
     <details><summary>Do I lose my library if I cancel?</summary><p>No — never. Your documents, notes, tags and universes live in your own vault files on your own machine, in readable formats, and they stay exactly where they are whether you subscribe or not. Canceling only stops future updates and license checks; nothing is locked, held, or taken away.</p></details>
     <details><summary>Who can see my documents?</summary><p>Nobody but you. There is no account, no cloud sync, no analytics looking over your shoulder — your files never leave your PC, so theses, client files, manuscripts and field notes stay as private as the machine they're on. The only conversations the app ever has with the outside world are license activation, a weekly license check, and update notices.</p></details>
     <details><summary>Does importing move or change my originals?</summary><p>No — importing only reads. Your PDFs, Word files, photos and everything else stay exactly where they are, exactly as they were. VisiDocsverse keeps its own working copies in its vault, so your filing system is never rearranged, renamed, or touched.</p></details>
-    <details><summary>How do I back up, or move to a new computer?</summary><p>Your whole library lives in portable vault files, so backing up is just copying them somewhere safe — and moving machines means copying them over and activating there. Your license moves with you: deactivate it on the old device, then activate on the new one with the same key. One active device at a time, as many moves as life requires.</p></details>
+    <details><summary>How do I back up, or move to a new computer?</summary><p>Your whole library lives in portable vault files, so backing up is just copying them somewhere safe — and moving machines means copying them over and activating there. Your license moves with you: your key covers up to two Windows machines at a time — just activate on each with the same key. If both seats are already in use and you move to a new machine, deactivate on one of the old ones first, then activate on the new one. As many moves as life requires.</p></details>
     <details><summary>Is there a free trial?</summary><p>There isn't, and here's our honest reasoning: at $4 a month, a trial would cost more in gating, expiring builds and support mail than it saves anyone. Instead, this whole page is the trial — real app footage, real motion, every view shown as it actually looks — so you can see exactly what you're buying before a single dollar moves. And if it isn't for you, the risk is tiny: canceling takes a minute, there is nothing to uninstall in a hurry, and your files never noticed you were here.</p></details>
-    <details><summary>How do I cancel my subscription?</summary><p>Find any email from Lemon Squeezy — your sign-up receipt or any billing email — and click the <strong>View order</strong> button inside it. That opens your order page, where you can manage or cancel the subscription yourself in a minute. No messages to us needed, no retention maze.</p></details>
+    <details><summary>How do I cancel my subscription?</summary><p>Open the <a href="https://customer.dodopayments.com/login/bus_0Nr4cwAVEZLAtn1NoZyqD" style="color:var(--gold)">Dodo Payments customer portal</a>, sign in with the email address you bought with, and cancel under Subscriptions — it takes a minute. (The portal link is also in every Dodo Payments receipt email.) Cancelling stops future renewals; your app keeps working until the end of the period you've paid for. No messages to us needed, no retention maze.</p></details>
   </div>
 </div></section>
 
 <section class="block" id="contact"><div class="wrap" style="max-width:760px">
   <div class="eyebrow rv">Contact</div>
   <h2 class="rv">Talk to a human.</h2>
-  <div class="side-card rv"><h4>📬 Support & billing</h4><p>For billing, invoices, or canceling a subscription: open your Lemon Squeezy order page (by clicking on the links sent to your email by Lemon Squeezy when you subscribed and at each new billing cycle) and manage everything from there.</p><p style="margin-bottom:0">For other queries, or if you wish to buy for a team or institution: send us a message here and we'll get back to you as quickly as we can.</p></div>
+  <div class="side-card rv"><h4>📬 Support & billing</h4><p>For billing, invoices, or canceling a subscription: open the <a href="https://customer.dodopayments.com/login/bus_0Nr4cwAVEZLAtn1NoZyqD" style="color:var(--gold)">Dodo Payments customer portal</a> (sign in with your purchase email — the portal link is also in every Dodo Payments receipt email) and manage everything from there.</p><p style="margin-bottom:0">For other queries, or if you wish to buy for a team or institution: send us a message here and we'll get back to you as quickly as we can.</p></div>
   <form class="cform rv" id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
     <!-- WEB3FORMS: paste the access key from web3forms.com below to go live (nothing else changes) -->
     <input type="hidden" name="access_key" value="b74e06db-75f7-4a2c-9eda-4b1bc66ab920">
@@ -598,7 +507,7 @@ Most similar in your workspace:
     f.addEventListener('submit',function(e){
       e.preventDefault();
       var key=(f.querySelector('input[name="access_key"]')||{}).value||'';
-      if(!key){st.className='';st.textContent='Messaging opens shortly — for now reach us via your Lemon Squeezy order page or a receipt-email reply.';return;}
+      if(!key){st.className='';st.textContent='Messaging opens shortly — for now reach us via the Dodo Payments customer portal or a receipt-email reply.';return;}
       if(!f.checkValidity()){st.className='err';st.textContent='Please fill in your name, a valid email, and a message.';f.reportValidity();return;}
       btn.disabled=true;st.className='';st.textContent='Sending…';
       fetch(f.action,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(f)))})
@@ -614,14 +523,14 @@ Most similar in your workspace:
   <div class="eyebrow">Stop filing. Start flying.</div>
   <h2>Your library is already a universe.<br>Come see it.</h2>
   <p class="sub" style="margin:0 auto 26px;text-align:center">Join the researchers, writers and analysts who read at the center of gravity.</p>
-  <a class="lemonsqueezy-button btn btn-gold" style="font-size:17px;padding:15px 34px" href="https://paymentprocessor.lemonsqueezy.com/checkout/buy/497cede5-0dda-4ae4-8e20-36e18dfbc42b" target="_blank" rel="noopener">Get VisiDocsverse →</a>
+  <a class="btn btn-gold" style="font-size:17px;padding:15px 34px" href="https://dodo.pe/visidocsverse" target="_blank" rel="noopener">Get VisiDocsverse →</a>
   <p class="micro" style="margin-top:14px">Windows 10/11 · Offline-first · $4/month, billed twice a year · Cancel anytime</p>
 </div></div></section>
 
 <footer><div class="wrap">
   <span><img class="fmark" src="https://user.uploads.dev/file/d3fafab83015367c8e11dd9ec7d31a41.png" alt="" width="22" height="22"> VISIDOCSVERSE — a living 3D document universe.</span>
   <span class="fl"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></span>
-  <span>Checkout & licensing by Lemon Squeezy · Your files never leave your PC.</span>
+  <span>Checkout & licensing by Dodo Payments · Your files never leave your PC.</span>
 </div></footer>
 
 <script>

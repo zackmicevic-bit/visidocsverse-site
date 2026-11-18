@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Terms of Service — VisiDocsverse</title>
-<meta name="description" content="VisiDocsverse terms of service: $4/month subscription billed twice yearly, license terms, offline grace, refunds via Lemon Squeezy.">
+<meta name="description" content="VisiDocsverse terms of service: $4/month subscription billed twice yearly, license terms, offline grace, refunds via Dodo Payments.">
 <link rel="icon" href="https://user.uploads.dev/file/d3fafab83015367c8e11dd9ec7d31a41.png">
 <style>
 :root{
@@ -146,107 +146,7 @@ footer .wrap{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-con
 .doc a{color:var(--gold)}
 .backlink{display:inline-block;margin-top:8px}
 </style>
-<!-- Lemon Squeezy Core SDK & Affiliate Tracking -->
-<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
-<script>
-  window.createLemonSqueezy = function () {
-    if (window.LemonSqueezy) {
-      // Setup LemonSqueezy listeners & affiliate cookie capture
-      window.LemonSqueezy.Setup({
-        eventHandler: (event) => {
-          try {
-            if (event === "mounted") window.__lsMountedAt = Date.now();
-            else if (event === "close") window.__lsOverlayOpen = false;
-          } catch (e) {}
-          console.log("Lemon Squeezy Event:", event);
-        }
-      });
-    }
-  };
 
-  // Affiliate capture: ?aff=CODE (or ?aff_ref=CODE) on a landing URL ->
-  // persisted ls_aff_ref cookie + localStorage backup, then forwarded into
-  // hosted checkout links (the SDK only appends aff_ref for overlay
-  // '.lemonsqueezy-button' checkouts, so plain links are stamped here).
-  (function () {
-    function getParam(n) { try { return new URLSearchParams(window.location.search).get(n); } catch (e) { return null; } }
-    function readCookie(n) { try { var p = document.cookie.split(";"); for (var i = 0; i < p.length; i++) { var c = p[i].replace(/^\s+/, ""); if (c.indexOf(n + "=") === 0) return decodeURIComponent(c.slice(n.length + 1)); } } catch (e) {} return null; }
-    function storedRef() { return readCookie("ls_aff_ref") || (function () { try { return localStorage.getItem("ls_aff_ref"); } catch (e) { return null; } })(); }
-    var code = getParam("aff") || getParam("aff_ref");
-    if (code) { try { document.cookie = "ls_aff_ref=" + encodeURIComponent(code) + "; max-age=31536000; path=/; SameSite=Lax"; localStorage.setItem("ls_aff_ref", code); } catch (e) {} }
-    function stamp() {
-      var ref = storedRef();
-      if (!ref) return;
-      document.querySelectorAll('a[href*="lemonsqueezy.com/checkout"]').forEach(function (a) {
-        try { var u = new URL(a.href); if (!u.searchParams.get("aff_ref")) { u.searchParams.set("aff_ref", ref); a.href = u.toString(); } } catch (e) {}
-      });
-    }
-    document.addEventListener("DOMContentLoaded", stamp);
-    window.addEventListener("load", stamp);
-    var sealedPreview = String(window.location.href).indexOf("about:srcdoc") === 0;
-    function lsToast(msg) {
-      try {
-        var d = document.createElement("div");
-        d.textContent = msg;
-        d.setAttribute("style", "position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:2147483647;background:rgba(10,14,22,.94);color:#ffe9bd;border:1px solid rgba(255,206,107,.55);border-radius:12px;padding:12px 18px;font:14px/1.5 system-ui,sans-serif;max-width:min(520px,90vw);text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.5)");
-        document.body.appendChild(d);
-        setTimeout(function () { try { d.remove(); } catch (e) {} }, 4200);
-      } catch (e) {}
-    }
-    if (sealedPreview) {
-      // Sealed editor previews sandbox the page (no forms/same-origin/popups),
-      // so the payment overlay can never boot there — it would stick on its
-      // loading veil forever. Disable overlay binding before the SDK\u2019s
-      // load-time hookup and say so on click instead of breaking the page.
-      document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll("a.lemonsqueezy-button").forEach(function (a) {
-          a.classList.remove("lemonsqueezy-button");
-          a.addEventListener("click", function (ev) {
-            ev.preventDefault();
-            lsToast("Checkout opens on the live site — this sealed preview cannot load payment pages.");
-          });
-        });
-      });
-    } else {
-      // Stuck-veil fallback for real browsers: if the overlay opened but the
-      // checkout never reports "mounted" (blocked third-party cookies, broken
-      // embed, stalled network), close it and fall back to a plain new tab
-      // instead of leaving the buyer staring at the loading veil.
-      document.addEventListener("click", function (e) {
-        var a = e.target && e.target.closest ? e.target.closest("a.lemonsqueezy-button") : null;
-        if (!a || !a.href) return;
-        var href = a.href;
-        window.__lsOverlayOpen = true;
-        window.__lsMountedAt = 0;
-        var wait = (typeof window.__lsOverlayTimeoutMs === "number") ? window.__lsOverlayTimeoutMs : 15000;
-        setTimeout(function () {
-          if (!window.__lsOverlayOpen || window.__lsMountedAt) return;
-          if (!document.body || !document.body.classList.contains("lemonsqueezy-open")) { window.__lsOverlayOpen = false; return; }
-          try { if (window.LemonSqueezy && window.LemonSqueezy.Url) window.LemonSqueezy.Url.Close(); } catch (err) {}
-          window.__lsOverlayOpen = false;
-          try { window.open(href, "_blank", "noopener"); } catch (err) { try { window.location.href = href; } catch (e2) {} }
-        }, wait + 700);
-      });
-    }
-  })();
-
-  // Run setup once the SDK is ready. lemon.js creates window.LemonSqueezy on
-  // window load (after DOMContentLoaded), and never fires lemonSqueezyLoaded,
-  // so poll as a fallback to guarantee Setup() always runs.
-  (function () {
-    var tries = 0;
-    function ready() {
-      if (window.LemonSqueezy && window.LemonSqueezy.Setup) { window.createLemonSqueezy(); return; }
-      if (++tries < 100) setTimeout(ready, 100);
-    }
-    function onReady() {
-      if (window.LemonSqueezy && window.LemonSqueezy.Setup) window.createLemonSqueezy();
-      else { window.addEventListener("lemonSqueezyLoaded", window.createLemonSqueezy); ready(); }
-    }
-    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", onReady);
-    else onReady();
-  })();
-</script>
 </head>
 <body>
 <nav class="nav"><div class="wrap nav-in">
@@ -256,31 +156,31 @@ footer .wrap{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-con
   </div>
   <div class="nav-cta">
     <a class="btn btn-ghost btn-sm" href="index.html#views">See it in action</a>
-    <a class="lemonsqueezy-button btn btn-gold btn-sm" href="https://paymentprocessor.lemonsqueezy.com/checkout/buy/497cede5-0dda-4ae4-8e20-36e18dfbc42b" target="_blank" rel="noopener">Get VisiDocsverse</a>
+    <a class="btn btn-gold btn-sm" href="https://dodo.pe/visidocsverse" target="_blank" rel="noopener">Get VisiDocsverse</a>
   </div>
 </div></nav>
 
 <main class="doc">
   <div class="eyebrow">Legal</div>
   <h1>Terms of Service</h1>
-  <p class="date">Last updated: November 8, 2026</p>
+  <p class="date">Last updated: November 18, 2026</p>
 
   <p>These terms cover your purchase and use of VisiDocsverse, a desktop document-universe app for Windows. By buying a subscription and using the app, you agree to them.</p>
 
   <h2>1. What you're buying</h2>
-  <p>VisiDocsverse is sold as a subscription: <b style="color:var(--ink)">$4 per month, billed twice a year ($24 every 6 months)</b>. Checkout, billing, and subscription management are handled by Lemon Squeezy as the merchant of record. Your license key stays valid while your subscription is active, and every app update released during that time is included. You can cancel anytime from your Lemon Squeezy order page; cancellation stops future renewals and your access continues until the end of the period you've paid for.</p>
+  <p>VisiDocsverse is sold as a subscription: <b style="color:var(--ink)">$4 per month, billed twice a year ($24 every 6 months)</b>. Checkout, billing, and subscription management are handled by Dodo Payments as the merchant of record. Your license key stays valid while your subscription is active, and every version-1 update released during that time is included free. You can cancel anytime from the Dodo Payments customer portal; cancellation stops future renewals and your access continues until the end of the period you've paid for. We reserve the right to change the subscription price without prior notice — your continued subscription after a price change means you accept the new price. If you don't agree to it, cancel from the customer portal before your next renewal.</p>
 
   <h2>2. Your license</h2>
   <ul>
-    <li>You may install and use the app on your own Windows machines using your license key.</li>
+    <li>You may install and use the app on up to two of your own Windows machines using your license key.</li>
     <li>Your key is personal: don't share it publicly, resell it, or bundle it with anything else. Keys found shared or abused may be deactivated.</li>
     <li>Institutional and Bulk Licenses are non-transferable and explicitly prohibited from unauthorized resale, sub-licensing, or third-party distribution without prior written authorization.</li>
-    <li>Enforcement: if we discover a reseller marked up a key, we reserve the right to void that master key immediately. Lemon Squeezy lets us invalidate keys from the dashboard, so we retain complete technical control over unauthorized keys.</li>
+    <li>Enforcement: if we discover a reseller marked up a key, we reserve the right to void that master key immediately. Dodo Payments lets us invalidate keys from the dashboard, so we retain complete technical control over unauthorized keys.</li>
     <li>You may not redistribute, repackage, or misrepresent the app as your own work.</li>
   </ul>
 
   <h2>3. License verification & offline use</h2>
-  <p>The app verifies your key with Lemon Squeezy when you activate it, then with a lightweight check about once a week. If your machine is offline, a 7-day grace period keeps everything working — unplug whenever you like within that window. If a check fails because the subscription ended or the key was deactivated, the app will ask you to renew rather than locking you out of your files (see next section).</p>
+  <p>The app verifies your key with Dodo Payments when you activate it, then with a lightweight check about once a week. If your machine is offline, a 7-day grace period keeps everything working — unplug whenever you like within that window. If a check fails because the subscription ended or the key was deactivated, the app will ask you to renew rather than locking you out of your files (see next section).</p>
 
   <h2>4. Your files are always yours</h2>
   <p>Your vault, documents, notes, tags, and backups live on your machine and belong to you. Cancelling, expiry, or even uninstalling never locks you out of your own files — they remain readable on your PC, always. Uninstalling the app does not delete your vault unless you choose to delete it.</p>
@@ -289,10 +189,10 @@ footer .wrap{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-con
   <p>While subscribed you receive all updates, which arrive with an in-app notice and install on your confirmation. Updates never touch your existing library or notes.</p>
 
   <h2>6. Support</h2>
-  <p>Support is provided through your Lemon Squeezy order page (or by replying to any Lemon Squeezy receipt email). We aim to answer billing and technical issues promptly, but support is best-effort and excludes custom development, data recovery from drives you wiped, and fighting your IT department's firewall (we'll still try).</p>
+  <p>Support is provided through the Dodo Payments customer portal (or by replying to any Dodo Payments receipt email). We aim to answer billing and technical issues promptly, but support is best-effort and excludes custom development, data recovery from drives you wiped, and fighting your IT department's firewall (we'll still try).</p>
 
   <h2>7. Refunds</h2>
-  <p>Refunds and billing disputes are handled under Lemon Squeezy's policies through your order page. If something is genuinely broken on our side, contact support first — we'd rather fix it or make it right than lose you.</p>
+  <p>Refunds and billing disputes are handled under Dodo Payments' policies through the customer portal. If something is genuinely broken on our side, contact support first — we'd rather fix it or make it right than lose you.</p>
 
   <h2>8. Acceptable use</h2>
   <p>Don't use the app to infringe anyone else's rights, don't attempt to circumvent licensing, and don't bulk-activate keys across machines you don't own. Straightforward stuff.</p>
@@ -307,7 +207,7 @@ footer .wrap{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-con
   <p>If these terms change materially, the updated version will be posted here with a new date. Continued use after a change means you accept the updated terms. Price changes never apply retroactively — your current paid period stays at the price you paid.</p>
 
   <h2>12. Contact</h2>
-  <p>Questions about these terms: contact support through your Lemon Squeezy order page or by replying to any Lemon Squeezy receipt email.</p>
+  <p>Questions about these terms: contact support through the Dodo Payments customer portal or by replying to any Dodo Payments receipt email.</p>
 
   <p class="backlink"><a href="index.html">← Back to the main page</a></p>
 </main>
@@ -315,7 +215,7 @@ footer .wrap{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-con
 <footer><div class="wrap">
   <span><img class="fmark" src="https://user.uploads.dev/file/d3fafab83015367c8e11dd9ec7d31a41.png" alt="" width="22" height="22"> VISIDOCSVERSE — a living 3D document universe.</span>
   <span class="fl"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></span>
-  <span>Checkout & licensing by Lemon Squeezy · Your files never leave your PC.</span>
+  <span>Checkout & licensing by Dodo Payments · Your files never leave your PC.</span>
 </div></footer>
 
 <script>
