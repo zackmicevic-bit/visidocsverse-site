@@ -70,6 +70,12 @@ h1 .gold{background:linear-gradient(180deg,#fff3d6,#ffce6b);-webkit-background-c
 .hero-cap .livedot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold);margin-right:7px}
 .chip{font-size:11.5px;font-weight:700;letter-spacing:.06em;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:var(--ink)}
 .chip.g{background:rgba(255,206,107,.16);border-color:rgba(255,206,107,.5);color:#ffe9bd}
+.ticker{overflow:hidden;border-top:1px solid rgba(255,255,255,.06);background:rgba(255,206,107,.05)}
+.ticker-pad{margin-top:18px;border:1px solid rgba(255,255,255,.06);border-radius:12px}
+.ticker-track{display:inline-flex;white-space:nowrap;padding:9px 0;will-change:transform}
+.ticker-track span{font-size:12px;letter-spacing:.22em;font-weight:800;color:var(--gold)}
+.ticker-track .tick-win{color:var(--gold);font-weight:800}
+.ticker-track .tick-mac{color:var(--mut);font-weight:600;font-style:normal}
 /* STRIP */
 .strip{border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.015)}
 .strip-in{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center;padding:16px 24px;color:var(--mut);font-size:13.5px}
@@ -267,6 +273,7 @@ footer .fl a:hover{color:var(--ink)}
   </div>
   <p class="micro hero-cap">The whole workspace on one screen — panes, universe, reader</p>
   </div>
+<div class="ticker" aria-hidden="true"><div class="ticker-track"><span><b class='tick-win'>WINDOWS APP ONLY</b><span class='tick-mac'>&nbsp;&nbsp;·&nbsp;&nbsp;MAC USERS — WE HEAR YOU — COMING SOON&nbsp;&nbsp;·&nbsp;&nbsp;</span><b class='tick-win'>WINDOWS APP ONLY</b><span class='tick-mac'>&nbsp;&nbsp;·&nbsp;&nbsp;MAC USERS — WE HEAR YOU — COMING SOON&nbsp;&nbsp;·&nbsp;&nbsp;</span><b class='tick-win'>WINDOWS APP ONLY</b><span class='tick-mac'>&nbsp;&nbsp;·&nbsp;&nbsp;MAC USERS — WE HEAR YOU — COMING SOON&nbsp;&nbsp;·&nbsp;&nbsp;</span></span><span><b class='tick-win'>WINDOWS APP ONLY</b><span class='tick-mac'>&nbsp;&nbsp;·&nbsp;&nbsp;MAC USERS — WE HEAR YOU — COMING SOON&nbsp;&nbsp;·&nbsp;&nbsp;</span><b class='tick-win'>WINDOWS APP ONLY</b><span class='tick-mac'>&nbsp;&nbsp;·&nbsp;&nbsp;MAC USERS — WE HEAR YOU — COMING SOON&nbsp;&nbsp;·&nbsp;&nbsp;</span><b class='tick-win'>WINDOWS APP ONLY</b><span class='tick-mac'>&nbsp;&nbsp;·&nbsp;&nbsp;MAC USERS — WE HEAR YOU — COMING SOON&nbsp;&nbsp;·&nbsp;&nbsp;</span></span></div></div>
 </div></header>
 
 <div class="strip"><div class="wrap strip-in">
@@ -480,6 +487,7 @@ Most similar in your workspace:
     </div>
     <div class="side-card rv"><h4>❓ How does the subscription work?</h4><p>$4/month, charged as $24 every 6 months. Your key stays active while subscribed; the license check is a lightweight weekly ping with a full week of offline grace — and your vault files are always readable on your machine, whatever happens.</p><h4 style="margin-top:16px">🖥 Requirements</h4><p>Windows 10/11 (64-bit). No account, no cloud, no GPU needed — the universe is a tuned Canvas renderer that stays smooth on modest machines.</p></div>
   </div>
+  <div class="ticker ticker-pad" aria-hidden="true"><div class="ticker-track"><span><b class='tick-win'>WINDOWS APP ONLY</b><span class='tick-mac'>&nbsp;&nbsp;·&nbsp;&nbsp;MAC USERS — WE HEAR YOU — COMING SOON&nbsp;&nbsp;·&nbsp;&nbsp;</span><b class='tick-win'>WINDOWS APP ONLY</b><span class='tick-mac'>&nbsp;&nbsp;·&nbsp;&nbsp;MAC USERS — WE HEAR YOU — COMING SOON&nbsp;&nbsp;·&nbsp;&nbsp;</span><b class='tick-win'>WINDOWS APP ONLY</b><span class='tick-mac'>&nbsp;&nbsp;·&nbsp;&nbsp;MAC USERS — WE HEAR YOU — COMING SOON&nbsp;&nbsp;·&nbsp;&nbsp;</span></span><span><b class='tick-win'>WINDOWS APP ONLY</b><span class='tick-mac'>&nbsp;&nbsp;·&nbsp;&nbsp;MAC USERS — WE HEAR YOU — COMING SOON&nbsp;&nbsp;·&nbsp;&nbsp;</span><b class='tick-win'>WINDOWS APP ONLY</b><span class='tick-mac'>&nbsp;&nbsp;·&nbsp;&nbsp;MAC USERS — WE HEAR YOU — COMING SOON&nbsp;&nbsp;·&nbsp;&nbsp;</span><b class='tick-win'>WINDOWS APP ONLY</b><span class='tick-mac'>&nbsp;&nbsp;·&nbsp;&nbsp;MAC USERS — WE HEAR YOU — COMING SOON&nbsp;&nbsp;·&nbsp;&nbsp;</span></span></div></div>
 </div></section>
 
 <section class="block" id="install" style="background:rgba(255,255,255,.015);border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)"><div class="wrap">
@@ -665,6 +673,28 @@ Most similar in your workspace:
       pendingHash=m[2]?m[2].slice(1):'';
       try{parent.postMessage({webSandboxLoad:m[1]},'*');}catch(err){}
     });
+  })();
+  // Tickers (hero + pricing): slow left-to-right drift, rAF-driven. Static when reduced motion is on.
+  (function(){
+    var tracks;
+    try{ tracks=document.querySelectorAll('.ticker-track'); }catch(e){ return; }
+    if(!tracks||!tracks.length) return;
+    try{
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var items=[], last=0, SPEED=40, i;
+      for(i=0;i<tracks.length;i++){ items.push({el:tracks[i],half:0,x:0}); }
+      function frame(t){
+        if(!last) last=t;
+        var dt=Math.min(0.1,(t-last)/1000); last=t;
+        for(var j=0;j<items.length;j++){
+          var it=items[j];
+          it.half=it.el.scrollWidth/2;
+          if(it.half>0){ it.x=(it.x+SPEED*dt)%it.half; it.el.style.transform='translateX('+(-it.half+it.x)+'px)'; }
+        }
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }catch(e){}
   })();
   // Views switcher
   var svg=document.getElementById('orbitSvg');
