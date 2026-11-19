@@ -252,7 +252,7 @@ footer .fl a:hover{color:var(--ink)}
 <nav class="nav"><div class="wrap nav-in">
   <a class="brand" href="#top"><img class="mk" src="https://user.uploads.dev/file/b93761de2d015e095c3c609bbd6d32b6.png" alt="VisiDocsverse logo" width="30" height="30"> VISIDOCSVERSE</a>
   <div class="nav-links">
-    <a href="#motion">How it works</a><a href="#features">Features</a><a href="#views">Views</a><a href="#offline">Offline</a><a href="#notai">Not AI</a><a href="#handoff">Handoff</a><a href="#pricing">Pricing</a><a href="#install">How to install</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+    <a href="#motion">How it works</a><a href="#features">Features</a><a href="#views">Views</a><a href="#offline">Offline</a><a href="#notai">Not AI</a><a href="#pricing">Pricing</a><a href="#install">How to install</a><a href="#faq">FAQ</a><a href="#contact">Contact</a><a href="tutorials.html">Tutorials</a>
   </div>
   <div class="nav-cta">
     <a class="btn btn-gold btn-sm" href="https://dodo.pe/visidocsverse" target="_blank" rel="noopener">Get VisiDocsverse</a>
@@ -678,7 +678,7 @@ Most similar in your workspace:
     document.addEventListener('click',function(e){
       var a=e.target&&e.target.closest?e.target.closest('a[href]'):null;
       if(!a||a.target==='_blank')return;
-      var m=/^((?:index|privacy|terms|moment-[a-z]+)\.html)(#.*)?$/.exec(a.getAttribute('href')||'');
+      var m=/^((?:index|privacy|terms|tutorials|moment-[a-z]+)\.html)(#.*)?$/.exec(a.getAttribute('href')||'');
       if(!m)return;
       e.preventDefault();
       pendingHash=m[2]?m[2].slice(1):'';
