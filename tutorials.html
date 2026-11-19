@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video Tutorials: Learn VisiDocsverse One Pane at a Time | VisiDocsverse</title>
+<meta name="description" content="Short video lessons for VisiDocsverse: how to start, the top pill, left pane, bottom pill, and reading pane — what each one does and how to use it.">
+<meta property="og:title" content="Video Tutorials — VisiDocsverse">
+<meta property="og:description" content="Five short lessons: start here, then master the top pill, left pane, bottom pill, and reading pane.">
+<meta property="og:type" content="article">
+<link rel="icon" href="https://user.uploads.dev/file/d3fafab83015367c8e11dd9ec7d31a41.png">
+<style>
+:root{
+  --bg:#0a0e16; --bg2:#0e1422; --panel:#121a2b; --panel2:#16203280;
+  --ink:#eef2fb; --mut:#9aa7c2; --dim:#6b7791;
+  --gold:#ffce6b; --gold2:#f5b83f; --goldink:#2a1f08;
+  --blue:#7db4ff; --cyan:#7ef0d4; --rose:#ff9db1; --violet:#c4a8ff;
+  --line:rgba(255,206,107,.22); --line2:rgba(125,180,255,.16);
+  --r:16px; --max:1120px;
+  --shadow:0 24px 70px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,#1b2742 0%,transparent 60%),radial-gradient(900px 500px at 10% 0%,#231d3a 0%,transparent 55%),var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+/* NAV */
+.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(10,14,22,.78);border-bottom:1px solid rgba(255,255,255,.07)}
+.nav-in{display:flex;align-items:center;gap:16px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.08em;font-size:14px;text-decoration:none}
+.brand .mk{width:30px;height:30px;border-radius:9px;background:#14161c;border:1px solid rgba(255,255,255,.16);object-fit:contain;padding:2px}
+footer .fmark{width:22px;height:22px;border-radius:6px;vertical-align:-5px;margin-right:2px}
+section.block,#top{scroll-margin-top:70px}
+.nav-links{display:flex;gap:20px;margin-left:18px;font-size:14px;color:var(--mut)}
+.nav-links a{text-decoration:none}.nav-links a:hover{color:var(--ink)}
+.nav-cta{margin-left:auto;display:flex;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:12px 20px;font-weight:700;font-size:15px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,background .12s ease}
+.btn-gold{background:linear-gradient(180deg,#ffdf9a 0%,#ffc93e 45%,#dd8f0e 100%);color:#160e00;font-weight:800;letter-spacing:.02em;border:1px solid rgba(112,72,6,.9);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 0 0 3px rgba(255,201,62,.28),0 10px 34px rgba(221,143,14,.6);text-shadow:0 1px 0 rgba(255,255,255,.35)}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.65),0 0 0 4px rgba(255,201,62,.38),0 14px 42px rgba(221,143,14,.7)}
+.btn-ghost{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:var(--ink)}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn-sm{padding:9px 14px;font-size:13.5px;border-radius:10px}
+.micro{font-size:12.5px;color:var(--mut)}
+/* SECTIONS */
+section.block{padding:72px 0}
+.eyebrow{font-size:12px;letter-spacing:.22em;font-weight:800;color:var(--gold);text-transform:uppercase}
+h1{font-size:clamp(38px,5.2vw,60px);line-height:1.04;margin:14px 0 16px;letter-spacing:-.02em}
+h1 .gold{background:linear-gradient(180deg,#fff3d6,#ffce6b);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:clamp(28px,3.6vw,42px);line-height:1.12;margin:12px 0 12px;letter-spacing:-.015em}
+.sub{color:var(--mut);font-size:17px;line-height:1.65;max-width:68ch;margin:0}
+.lede{font-size:clamp(16px,2vw,19px);line-height:1.65;color:var(--mut);margin:0 0 26px;max-width:56ch}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+/* TUTORIAL CARDS */
+.tut{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:28px;margin-top:28px;overflow:hidden}
+.tut:hover{border-color:rgba(255,206,107,.4)}
+.tut .num{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.2em;font-weight:800;color:var(--gold);text-transform:uppercase}
+.tut .num .n{width:30px;height:30px;border-radius:50%;display:inline-grid;place-items:center;font-weight:900;font-size:14px;background:linear-gradient(180deg,#ffe1a0,#f5b83f);color:#241a05;letter-spacing:0}
+.tut h2{font-size:clamp(22px,3vw,30px);margin:12px 0 10px}
+.tut p{color:var(--mut);font-size:15.5px;line-height:1.7;margin:0 0 12px}
+.tut ul{margin:0 0 16px;padding-left:22px;color:var(--mut);font-size:14.5px;line-height:1.75}
+.tut ul b{color:var(--ink)}
+.vid{position:relative;width:100%;padding-top:56.25%;background:#05080e;border:1px solid rgba(255,255,255,.12);border-radius:14px;overflow:hidden;margin:4px 0 16px}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.watch{display:inline-flex;align-items:center;gap:8px;color:var(--gold);font-weight:700;font-size:15px;text-decoration:none}
+.watch:hover{text-decoration:underline}
+/* FINAL */
+.final{background:linear-gradient(180deg,#141c31,#0a0e16);border:1px solid rgba(255,206,107,.3);border-radius:22px;padding:46px 30px;text-align:center;margin-top:10px}
+.final h2{margin-top:0}
+footer{border-top:1px solid rgba(255,255,255,.07);padding:26px 0 40px;color:var(--dim);font-size:13px}
+footer .wrap{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+footer .fl{display:flex;gap:18px;align-items:center}
+footer .fl a{color:var(--mut);font-size:13px;text-underline-offset:3px}
+footer .fl a:hover{color:var(--ink)}
+.doc{max-width:760px;margin:0 auto;padding:56px 24px 72px}
+.doc.wide{max-width:980px}
+.doc h1{font-size:clamp(32px,4.5vw,46px);margin:14px 0 6px}
+.doc .date{color:var(--dim);font-size:13.5px;margin:0 0 26px}
+.doc a{color:var(--gold)}.doc a.btn-gold{color:#160e00}
+.ctabox{background:linear-gradient(180deg,#1a2338,#0f1626);border:1.5px solid rgba(255,206,107,.55);border-radius:18px;padding:28px;text-align:center;margin-top:30px}.ctabox .btn-gold{font-size:17px;padding:15px 38px}
+.backlink{display:inline-block;margin-top:8px}
+@media(max-width:900px){
+  .nav-cta .btn-ghost{display:none}
+  .nav-links{display:none}
+  section.block{padding:52px 0}
+  .tut{padding:20px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+</head>
+<body>
+<nav class="nav"><div class="wrap nav-in">
+  <a class="brand" href="index.html#top"><img class="mk" src="https://user.uploads.dev/file/b93761de2d015e095c3c609bbd6d32b6.png" alt="VisiDocsverse logo" width="30" height="30"> VISIDOCSVERSE</a>
+  <div class="nav-links">
+    <a href="index.html#motion">How it works</a><a href="index.html#features">Features</a><a href="index.html#views">Views</a><a href="index.html#offline">Offline</a><a href="index.html#notai">Not AI</a><a href="index.html#pricing">Pricing</a><a href="index.html#install">How to install</a><a href="index.html#faq">FAQ</a><a href="index.html#contact">Contact</a><a href="tutorials.html" aria-current="page" style="color:var(--gold);font-weight:700">Tutorials</a>
+  </div>
+  <div class="nav-cta">
+    <a class="btn btn-gold btn-sm" href="https://dodo.pe/visidocsverse" target="_blank" rel="noopener">Get VisiDocsverse</a>
+  </div>
+</div></nav>
+
+<main class="doc wide">
+  <div class="eyebrow">Video tutorials</div>
+  <h1>Learn the app, <span style="background:linear-gradient(180deg,#fff3d6,#ffce6b);-webkit-background-clip:text;background-clip:text;color:transparent">one pane at a time.</span></h1>
+  <p class="date">Five short lessons on the VisiDocsverse YouTube channel · Start with lesson 1, then master each pane</p>
+  <p style="color:var(--mut);font-size:15.5px;line-height:1.75;margin:0 0 12px">Every lesson below lives on the VisiDocsverse YouTube channel. They play right here — or open any of them on YouTube to like, comment, and subscribe so you catch the next ones.</p>
+
+  <div class="tut" id="start">
+    <span class="num"><span class="n">1</span> Lesson one · Start here</span>
+    <h2>How to start using VisiDocsverse</h2>
+    <p>Your first five minutes: open your first project, drop in your documents, and take your first flight around the universe — no manual needed.</p>
+    <ul>
+      <li><b>Open a project</b> and meet the workspace: panes, pills, and canvas.</li>
+      <li><b>Add documents</b> with drag &amp; drop — then watch them pull together.</li>
+      <li><b>Move around:</b> orbit, zoom, recenter, and click a body to read it.</li>
+      <li><b>Save your project</b> so your universe is always backed up.</li>
+    </ul>
+        <a class="watch" href="https://youtu.be/51kS61lV5nA" target="_blank" rel="noopener">▶ Watch on YouTube →</a>
+  </div>
+
+  <div class="tut" id="top-pill">
+    <span class="num"><span class="n">2</span> Top pill · Projects &amp; views</span>
+    <h2>Top pill: projects, views &amp; stats</h2>
+    <p>The top pill runs the big picture: which project universe you're in, and which lens you're seeing it through.</p>
+    <ul>
+      <li><b>Project tabs:</b> keep multiple canvases and switch between them.</li>
+      <li><b>MAIN view:</b> every document as itself, clustered by shared ground.</li>
+      <li><b>THEMATIC view:</b> the same corpus re-webbed around ideas.</li>
+      <li><b>TAGS view + Tags Inventory:</b> your labels as a map you can browse, merge, and rename.</li>
+    </ul>
+        <a class="watch" href="https://youtu.be/myRfDMpmv-w" target="_blank" rel="noopener">▶ Watch on YouTube →</a>
+  </div>
+
+  <div class="tut" id="left-pane">
+    <span class="num"><span class="n">3</span> Left pane · Mission control</span>
+    <h2>Left pane: every control, what it does</h2>
+    <p>The left pane is mission control for how your universe looks and feels — brightness, body size, glow, tethers, motion, and textures.</p>
+    <ul>
+      <li><b>Labels &amp; Shade:</b> readable text at any size, plus dark / light canvas mode.</li>
+      <li><b>Bodies, glow &amp; compress:</b> size the orbs, set the halo, squeeze the layout.</li>
+      <li><b>Tethers:</b> line thickness plus dotted, sparse, and dashed styles.</li>
+      <li><b>Rotation, overlays &amp; backdrops:</b> spin, photo textures, and canvas scenery.</li>
+    </ul>
+        <a class="watch" href="https://youtu.be/NmIuTyF0zhQ" target="_blank" rel="noopener">▶ Watch on YouTube →</a>
+  </div>
+
+  <div class="tut" id="bottom-pill">
+    <span class="num"><span class="n">4</span> Bottom pill · Canvas controls</span>
+    <h2>Bottom pill: Hover Peek, Fit, Tethers &amp; more</h2>
+    <p>The bottom pill is where you drive the canvas itself — preview, arrange, frame, and restyle everything on screen.</p>
+    <ul>
+      <li><b>Hover Peek:</b> preview a document without leaving the map.</li>
+      <li><b>Distribute &amp; Fit:</b> spread the universe out, or frame it all on screen.</li>
+      <li><b>Tethers + line styles:</b> show the connections your way.</li>
+      <li><b>Plain Body &amp; Body To:</b> swap how bodies look — including document icons.</li>
+    </ul>
+        <a class="watch" href="https://youtu.be/OM3lMM_jyQM" target="_blank" rel="noopener">▶ Watch on YouTube →</a>
+  </div>
+
+  <div class="tut" id="reading-pane">
+    <span class="num"><span class="n">5</span> Right side · The reading pane</span>
+    <h2>Reading pane: open, read &amp; work with documents</h2>
+    <p>The right-side pane is where you actually read: click any body and its full text docks beside the universe, ringed by everything it connects to.</p>
+    <ul>
+      <li><b>Open from the canvas</b> — the document glides to the center as the sun.</li>
+      <li><b>Read &amp; navigate</b> long documents with search hits lit in gold.</li>
+      <li><b>Body menu:</b> notes, tags, and per-document options.</li>
+      <li><b>Download the original</b> byte-identical any time; off-click to release.</li>
+    </ul>
+        <a class="watch" href="https://youtu.be/IZSDOzY0Rsk" target="_blank" rel="noopener">▶ Watch on YouTube →</a>
+  </div>
+
+  <div class="ctabox">
+    <div class="eyebrow">Stop filing. Start flying.</div>
+    <h2 style="margin-top:8px">Your library is already a universe. Come see it.</h2>
+    <p class="sub" style="margin:0 auto 22px;text-align:center">$4/month, billed twice a year · Offline-first · Cancel anytime</p>
+    <a class="btn btn-gold" href="https://dodo.pe/visidocsverse" target="_blank" rel="noopener">Get VisiDocsverse →</a>
+  </div>
+
+  <p class="backlink"><a href="index.html#top">← Back to the homepage</a></p>
+</main>
+
+<footer><div class="wrap">
+  <span><img class="fmark" src="https://user.uploads.dev/file/d3fafab83015367c8e11dd9ec7d31a41.png" alt="" width="22" height="22"> VISIDOCSVERSE — a living 3D document universe.</span>
+  <span class="fl"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></span>
+  <span>Checkout & licensing by Dodo Payments · Your files never leave your PC.</span>
+</div></footer>
+
+<script>
+(function(){
+  // Sandbox-safe anchor scrolling (same pattern as the main page).
+  document.addEventListener('click',function(e){
+    var a=e.target&&e.target.closest?e.target.closest('a[href^="#"]'):null;
+    if(!a)return;
+    var id=a.getAttribute('href');
+    if(!id||id.length<2)return;
+    var t=document.getElementById(id.slice(1));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+  // Sealed-preview page routing (see index.html): asks the opener for the page
+  // via postMessage relay when running as about:srcdoc; native navigation
+  // wins on the live site.
+  (function(){
+    if(String(window.location.href).indexOf('about:srcdoc')!==0)return;
+    var pendingHash='';
+    window.addEventListener('message',function(e){
+      var d=e&&e.data;
+      if(!d||typeof d!=='object'||!d.webSandboxPage)return;
+      if(d.error||typeof d.html!=='string'){
+        document.open();
+        document.write('<body style="margin:0;background:#0d1117;color:#dbe4f5;font:14px/1.6 system-ui,sans-serif;padding:40px"><h2 style="color:#ffce6b">Page not reachable yet</h2><p>Reload the preview page once, then reopen the sandbox.</p></body>');
+        document.close();
+        return;
+      }
+      var html=d.html;
+      document.open();document.write(html);document.close();
+      // Scroll after render: document now refers to the freshly written page.
+      var hid=pendingHash;pendingHash='';
+      if(hid)setTimeout(function(){var t=document.getElementById(hid);if(t)t.scrollIntoView();},60);
+    });
+    document.addEventListener('click',function(e){
+      var a=e.target&&e.target.closest?e.target.closest('a[href]'):null;
+      if(!a||a.target=='_blank')return;
+      var m=/^((?:index|privacy|terms|tutorials|moment-[a-z]+)\.html)(#.*)?$/.exec(a.getAttribute('href')||'');
+      if(!m)return;
+      e.preventDefault();
+      pendingHash=m[2]?m[2].slice(1):'';
+      try{parent.postMessage({webSandboxLoad:m[1]},'*');}catch(err){}
+    });
+  })();
+})();
+</script>
+</body>
+</html>
