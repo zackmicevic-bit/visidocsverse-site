@@ -158,7 +158,7 @@ footer .wrap{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-con
 <nav class="nav"><div class="wrap nav-in">
   <a class="brand" href="index.html#top"><img class="mk" src="https://user.uploads.dev/file/b93761de2d015e095c3c609bbd6d32b6.png" alt="VisiDocsverse logo" width="30" height="30"> VISIDOCSVERSE</a>
   <div class="nav-links">
-    <a href="index.html#motion">How it works</a><a href="index.html#features">Features</a><a href="index.html#views">Views</a><a href="index.html#offline">Offline</a><a href="index.html#pricing">Pricing</a><a href="index.html#install">How to install</a><a href="index.html#faq">FAQ</a>
+    <a href="index.html#motion">How it works</a><a href="index.html#features">Features</a><a href="index.html#views">Views</a><a href="index.html#offline">Offline</a><a href="index.html#pricing">Pricing</a><a href="index.html#install">How to install</a><a href="index.html#faq">FAQ</a><a href="tutorials.html">Tutorials</a>
   </div>
   <div class="nav-cta">
     <a class="btn btn-ghost btn-sm" href="index.html#views">See it in action</a>
@@ -241,7 +241,7 @@ footer .wrap{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-con
     document.addEventListener('click',function(e){
       var a=e.target&&e.target.closest?e.target.closest('a[href]'):null;
       if(!a||a.target==='_blank')return;
-      var m=/^((?:index|privacy|terms|moment-[a-z]+)\.html)(#.*)?$/.exec(a.getAttribute('href')||'');
+      var m=/^((?:index|privacy|terms|tutorials|moment-[a-z]+)\.html)(#.*)?$/.exec(a.getAttribute('href')||'');
       if(!m)return;
       e.preventDefault();
       pendingHash=m[2]?m[2].slice(1):'';
