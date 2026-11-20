@@ -1,9 +1,8 @@
 {
-  "redirects": [
+  "rewrites": [
     {
-      "source": "/download",
-      "destination": "https://dodo.pe/visidocsverse-trial",
-      "permanent": false
+      "source": "/download/file",
+      "destination": "https://github.com/zackmicevic-bit/visidocsverse/releases/latest/download/VisiDocsVerse-Setup.exe"
     }
   ],
   "headers": [
