@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/download",
+      "destination": "https://dodo.pe/visidocsverse-trial",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/version.json",
