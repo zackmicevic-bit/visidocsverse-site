@@ -1,0 +1,34 @@
+# VisiDocsverse
+
+> VisiDocsverse is an offline-first Windows app that hangs every document
+> (PDFs, Word, spreadsheets, slides, notes) in 3D space, where related ideas
+> pull together with real gravity. Free 21-day trial, then $4/month billed
+> twice a year. Your files never leave your PC. For researchers, writers and
+> analysts drowning in PDFs who distrust cloud AI toys.
+
+## Program pages
+
+- Home: https://visidocsverse.com/ :: Your documents, as a living universe.
+- How it works: https://visidocsverse.com/#motion :: Gravity, orbits, tethers.
+- Features: https://visidocsverse.com/#features :: What the app does.
+- Views: https://visidocsverse.com/#views :: Ways to see your library.
+- Offline: https://visidocsverse.com/#offline :: Offline-first promise.
+- Pricing: https://visidocsverse.com/#pricing :: $4/month, billed twice a year.
+- Install: https://visidocsverse.com/#install :: How to install on Windows.
+- FAQ: https://visidocsverse.com/#faq :: Honest answers, including what it is not.
+- Tutorials: https://visidocsverse.com/tutorials :: Video walkthroughs.
+- Pocket universes (7 moment pages): https://visidocsverse.com/moment-intake, https://visidocsverse.com/moment-locate, https://visidocsverse.com/moment-notes, https://visidocsverse.com/moment-read, https://visidocsverse.com/moment-search, https://visidocsverse.com/moment-tags, https://visidocsverse.com/moment-tethers, https://visidocsverse.com/moment-themes :: One-page explainers per feature moment.
+- Privacy: https://visidocsverse.com/privacy :: No trackers on this site.
+- Terms: https://visidocsverse.com/terms :: Trial and subscription terms.
+- About: https://visidocsverse.com/about :: Who builds this and why.
+- Editorial policy: https://visidocsverse.com/editorial :: How articles are made.
+
+## Articles
+
+- Hub: https://visidocsverse.com/articles :: Research-backed guides (one keyword, one page; newest first once publishing starts).
+- (New articles append here as: Title :: URL :: meta description.)
+
+## Trial and checkout (the only conversion targets — never link anything else pre-sale)
+
+- Free trial download: https://visidocsverse.com/download :: 21-day trial, Windows.
+- Checkout: https://dodo.pe/visidocsverse :: Public checkout via Dodo Payments.

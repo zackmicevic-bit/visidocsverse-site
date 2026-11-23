@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://visidocsverse.com/sitemap.xml
