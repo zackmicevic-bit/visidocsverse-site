@@ -180,7 +180,7 @@ footer .fl a:hover{color:var(--ink)}
   <h1>Easy-Locate Documents: Click Any File, See It in the Reader</h1>
   <p class="date">Real recording from the VisiDocsverse desktop app · 10-second loop · No mockups</p>
 
-  <div class="shot theater rv"><video src="https://user.uploads.dev/file/c3d228ae5afc2ba095b8014200053ed7.webm" controls autoplay muted loop playsinline preload="metadata" style="width:100%"></video></div>
+  <div class="shot theater rv"><video src="https://user.uploads.dev/file/c3d228ae5afc2ba095b8014200053ed7.webm" poster="https://user.uploads.dev/file/1004514d8f2c3f732617b46fa0b06702.jpg" controls autoplay muted loop playsinline preload="metadata" style="width:100%"></div>
   <p class="micro">Above: the command bar in the intake panel — the fastest route from “I know it's in here somewhere” to the document itself.</p>
 
   <h2>Stop hunting through folders</h2>
@@ -220,6 +220,10 @@ footer .fl a:hover{color:var(--ink)}
 
 <script>
 (function(){
+  // Reveal-on-scroll (same as index): .rv starts invisible, .in reveals it.
+  try{var __rv=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');__rv.unobserve(e.target);}});},{threshold:.12});
+  document.querySelectorAll('.rv').forEach(function(el){__rv.observe(el);});}
+  catch(__e){document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in');});}
   // Sandbox-safe anchor scrolling (same pattern as the main page).
   document.addEventListener('click',function(e){
     var a=e.target&&e.target.closest?e.target.closest('a[href^="#"]'):null;
