@@ -254,7 +254,7 @@ footer .fl a:hover{color:var(--ink)}
     document.addEventListener('click',function(e){
       var a=e.target&&e.target.closest?e.target.closest('a[href]'):null;
       if(!a||a.target==='_blank')return;
-      var m=/^((?:index|privacy|terms|tutorials|articles|editorial|about|moment-[a-z]+|articles/[a-z0-9-]+)\.html)(#.*)?$/.exec(a.getAttribute('href')||'');
+      var m=/^((?:index|privacy|terms|tutorials|articles|editorial|about|moment-[a-z]+|articles\/[a-z0-9-]+)\.html)(#.*)?$/.exec(a.getAttribute('href')||'');
       if(!m)return;
       e.preventDefault();
       pendingHash=m[2]?m[2].slice(1):'';
