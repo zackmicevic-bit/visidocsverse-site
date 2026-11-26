@@ -184,7 +184,12 @@ footer .fl a:hover{color:var(--ink)}
   <h2>Latest articles</h2>
   <!-- ARTICLE-INDEX:START — the article builder injects one entry per published article here (newest first). Pretty URLs only (/articles/slug — no .html hrefs, avoids split link equity). Keep the empty-state paragraph until the first article ships. -->
   <div id="articleIndex">
-    <p class="micro">First articles are on the way — we publish slowly, at most one a day, and only what beats what is already ranking. Check back soon.</p>
+    <div class="card">
+      <span class="tag">Research guides</span>
+      <h3><a href="/articles/offline-pdf-organizer">Offline PDF Organizer for Researchers Who Hate Filing</a></h3>
+      <p class="micro">Published 2026-11-26 · 6-minute read · Keyword: offline PDF organizer</p>
+      <p>One inbox, stable filenames, a small tag vocabulary, full-text search with OCR, and real backups — the offline PDF system that keeps thousands of papers findable.</p>
+    </div>
   </div>
   <!-- ARTICLE-INDEX:END -->
 
@@ -250,7 +255,7 @@ footer .fl a:hover{color:var(--ink)}
     document.addEventListener('click',function(e){
       var a=e.target&&e.target.closest?e.target.closest('a[href]'):null;
       if(!a||a.target==='_blank')return;
-      var m=/^((?:index|privacy|terms|tutorials|articles|editorial|about|moment-[a-z]+)\.html)(#.*)?$/.exec(a.getAttribute('href')||'');
+      var m=/^((?:index|privacy|terms|tutorials|articles|editorial|about|moment-[a-z]+|articles/[a-z0-9-]+)\.html)(#.*)?$/.exec(a.getAttribute('href')||'');
       if(!m)return;
       e.preventDefault();
       pendingHash=m[2]?m[2].slice(1):'';

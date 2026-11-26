@@ -26,6 +26,7 @@
 ## Articles
 
 - Hub: https://visidocsverse.com/articles :: Research-backed guides (one keyword, one page; newest first once publishing starts).
+- Offline PDF Organizer for Researchers Who Hate Filing :: https://visidocsverse.com/articles/offline-pdf-organizer :: Offline PDF organizer for researchers who hate filing: one inbox, stable names, tags, full-text search, and backups for thousands of PDFs. No cloud needed.
 - (New articles append here as: Title :: URL :: meta description.)
 
 ## Trial and checkout (the only conversion targets — never link anything else pre-sale)
