@@ -27,6 +27,7 @@
 
 - Hub: https://visidocsverse.com/articles :: Research-backed guides (one keyword, one page; newest first once publishing starts).
 - Offline PDF Organizer for Researchers Who Hate Filing :: https://visidocsverse.com/articles/offline-pdf-organizer :: Offline PDF organizer for researchers who hate filing: one inbox, stable names, tags, full-text search, and backups for thousands of PDFs. No cloud needed.
+- How to Manage BibTeX Files Offline on Windows :: https://visidocsverse.com/articles/manage-bibtex-files-offline-windows :: Learn how to manage BibTeX files offline on Windows to secure your research. Avoid cloud lock-in and build a sovereign vault. Start your free trial today.
 - (New articles append here as: Title :: URL :: meta description.)
 
 ## Trial and checkout (the only conversion targets — never link anything else pre-sale)
